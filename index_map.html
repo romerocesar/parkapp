@@ -155,12 +155,6 @@
 
       }
 
-      //console.log(convertCoordinates(47.606585, -122.336439));
-      //console.log(getBoundingBox(-13618430.094942143, 6041652.3842038615));
-
-      // -122.336439,
-      // -13618430.094942143, 6041652.3842038615
-
       getUserPosition(initMap);
 
     });
@@ -168,42 +162,3 @@
     </script>
 </body>
 </html>
-
-<!--
-var watchID = geo.watchPosition(
-
-// Position was successfully retrieved
-function(position) {
-
-onSuccess && onSuccess({
-'latitude': position.coords.latitude,
-'longitude': position.coords.latitude,
-'accuracy': position.coords.accuracy
-});
-
-},
-
-function(err) {
-if (typeof onError == 'function')
-onError(err);
-},
-
-// Options
-{
-enableHighAccuracy: highAccuracy,
-maximumAge: timeout,
-timeout: geoTimeout
-}
-);
-
-return watchID;
-}
-
-this.clearWatch = function(watchID)
-{
-var geo = this.getApi();
-
-if(geo !== null)
-geo.clearWatch(watchID);
-}
--->
