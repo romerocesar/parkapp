@@ -31,7 +31,7 @@ html(lang="en" ng-app="meterQuest")
                     button(class="btn btn-primary" ng-click="cancel()") Cancel
         button(class="btn btn-default" ng-click="open()") Edit spot
 
-    div(id='map' style='width: 700px; height: 700px; margin: 50px;' ng-controller='meterQuestMap')
+    meter-quest-map
 
     script(src='jquery/dist/jquery.js')
     script(src='angular/angular.js')
@@ -40,4 +40,3 @@ html(lang="en" ng-app="meterQuest")
     script(src='angular-bootstrap/ui-bootstrap-tpls.min.js')
     script(src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false')
     script(src='scripts/all.js')
-
