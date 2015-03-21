@@ -22,87 +22,106 @@
     <div id="map"></div>
 
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script src="http://js.arcgis.com/3.13/"></script>
     <script type="text/javascript">
 
-    // Gets the user's position
-    function getUserPosition(success) {
+    require(["esri/geometry/webMercatorUtils", "esri/SpatialReference", "esri/geometry/Point"], function(WebMercatorUtils, SpatialReference, Point) {
 
-      navigator.geolocation.getCurrentPosition(
+      // Gets the user's position
+      function getUserPosition(success) {
 
-        // Success
-        function(position) {
-          success(position.coords.latitude, position.coords.longitude);
-        },
+        navigator.geolocation.getCurrentPosition(
 
-        // Error
-        function(err) {
+          // Success
+          function(position) {
+            success(position.coords.latitude, position.coords.longitude);
+          },
 
-          // Use the default coordinates of Moz
-          initMap(47.6061287, -122.335073);
+          // Error
+          function(err) {
 
-        }
+            // Use the default coordinates of Moz
+            initMap(47.6061287, -122.335073);
 
-      );
+          }
 
-    }
+        );
 
-    // Initializes the map, centering on the specified latitude and longitude
-    function initMap(latitude, longitude) {
-
-      var mapOptions =
-      {
-        zoom: 20,
-        center: new google.maps.LatLng(latitude, longitude),
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      };
-
-      var map = new google.maps.Map(document.getElementById('map'),
-      mapOptions);
-
-      google.maps.event.addListener(map, "click", function(event)
-      {
-        console.log(event.latLng.lat());
-        console.log(event.latLng.lng());
-      });
-
-    }
-
-    function getParkingUrl() {
-
-      var baseUrl = "http://gisrevprxy.seattle.gov/ArcGIS/rest/services/SDOT_EXT/sdot_parking/MapServer/7/query?";
-
-      var params = 'f=json'
-        + '&returnGeometry=true'
-        + '&spatialRel=esriSpatialRelIntersects'
-        + '&maxAllowableOffset=19'
-        + '&geometry={'
-            + '"xmin":-13609460.012127195,'
-            + '"ymin":6032252.681953923,'
-            + '"xmax":-13599676.072506705,'
-            + '"ymax":6042036.621574413,'
-            + '"spatialReference":{"wkid":102100,"latestWkid":3857}}'
-        + '&geometryType=esriGeometryEnvelope'
-        + '&inSR=102100'
-        + '&outFields=OBJECTID,PARKING_CATEGORY'
-        + '&outSR=102100'
-        + '&callback=dojo.io.script.jsonp_dojoIoScript_Street_Parking_by_Category70_19_10925707126888_1_657._jsonpCallback';
-
-        return baseUrl + params;
-
-    }
-
-    function getBoundingBox(x, y) {
-      var boundingDiff = 4892;
-
-      return {
-        xmin: (x - boundingDiff),
-        xmax: (x + boundingDiff),
-        ymin: (y - boundingDiff),
-        ymax: (y + boundingDiff)
       }
-    }
 
-    getUserPosition(initMap);
+      // Initializes the map, centering on the specified latitude and longitude
+      function initMap(latitude, longitude) {
+
+        var mapOptions =
+        {
+          zoom: 20,
+          center: new google.maps.LatLng(latitude, longitude),
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        var map = new google.maps.Map(document.getElementById('map'),
+        mapOptions);
+
+        google.maps.event.addListener(map, "click", function(event)
+        {
+          console.log(event.latLng.lat());
+          console.log(event.latLng.lng());
+        });
+
+      }
+
+      // Generates a URL that can be used to request parking category data
+      function getParkingUrl() {
+
+        var baseUrl = "http://gisrevprxy.seattle.gov/ArcGIS/rest/services/SDOT_EXT/sdot_parking/MapServer/7/query?";
+
+        var params = 'f=json'
+          + '&returnGeometry=true'
+          + '&spatialRel=esriSpatialRelIntersects'
+          + '&maxAllowableOffset=19'
+          + '&geometry={'
+              + '"xmin":-13609460.012127195,'
+              + '"ymin":6032252.681953923,'
+              + '"xmax":-13599676.072506705,'
+              + '"ymax":6042036.621574413,'
+              + '"spatialReference":{"wkid":102100,"latestWkid":3857}}'
+          + '&geometryType=esriGeometryEnvelope'
+          + '&inSR=102100'
+          + '&outFields=OBJECTID,PARKING_CATEGORY'
+          + '&outSR=102100'
+          + '&callback=dojo.io.script.jsonp_dojoIoScript_Street_Parking_by_Category70_19_10925707126888_1_657._jsonpCallback';
+
+          return baseUrl + params;
+
+      }
+
+      // Returns a bounding box based on the specified X, Y coordinate
+      function getBoundingBox(x, y) {
+        var boundingDiff = 4892;
+
+        return {
+          xmin: (x - boundingDiff),
+          xmax: (x + boundingDiff),
+          ymin: (y - boundingDiff),
+          ymax: (y + boundingDiff)
+        }
+      }
+
+      // Converts latitude and longitude to X and Y coordinates
+      function convertCoordinates(lat, lon) {
+
+        var result = WebMercatorUtils.lngLatToXY(lon, lat));
+
+        return {
+          x: result[0],
+          y: reslult[1]
+        };
+
+      }
+
+      getUserPosition(initMap);
+
+    });
 
     </script>
 </body>
