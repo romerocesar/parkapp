@@ -19,3 +19,9 @@ http://gisrevprxy.seattle.gov/ArcGIS/rest/services/SDOT_EXT/DSG_datasharing/MapS
 + Write descriptive commit messages
 + Don't push broken or incomplete code to master
 + Use feature branches locally
+
+# Starting the server
++ Install node >= 0.11.0
++ `npm install`
++ `gulp`
++ View on `localhost:3000`
