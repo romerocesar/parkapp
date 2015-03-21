@@ -1,39 +1,111 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <body>
-      <div id="map" style="width: 700px; height: 700px; margin: 50px;">
-          <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-          <script type="text/javascript">
+<head>
+    <title>Google Maps Parking Tests</title>
+    <style type="text/css">
 
-          var map;
+      html, body
+      {
+        height: 100%;
+        margin: 0;
+      }
 
-          function initialize() 
-           
-            {
-              var mapOptions = 
-                {
-                     zoom: 16,
-                     center: new google.maps.LatLng(47.6097, -122.3331),
-                     mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
+      #map
+      {
+        height: 100%;
+        width: 100%;
+      }
 
-              var map = new google.maps.Map(document.getElementById('map'),
-                mapOptions);
-            
-              google.maps.event.addListener(map, "click", function(event)
-                {
-                  console.log(event.latLng.lat());
-                  console.log(event.latLng.lng());
-                });
+    </style>
+</head>
+<body>
+    <div id="map"></div>
 
-            };
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script type="text/javascript">
 
+    function getUserPosition(success) {
 
-          initialize();
+      navigator.geolocation.getCurrentPosition(
 
-          </script>
-      </div>
-    </body>
-  </head>
+        // Success
+        function(position) {
+          success(position.coords.latitude, position.coords.longitude);
+        },
+
+        // Error
+        function(err) {
+
+          // Use the default coordinates of Moz
+          initMap(47.6061287, -122.335073);
+
+        }
+
+      );
+
+    }
+
+    function initMap(latitude, longitude) {
+
+      var mapOptions =
+      {
+        zoom: 20,
+        center: new google.maps.LatLng(latitude, longitude),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+
+      var map = new google.maps.Map(document.getElementById('map'),
+      mapOptions);
+
+      google.maps.event.addListener(map, "click", function(event)
+      {
+        console.log(event.latLng.lat());
+        console.log(event.latLng.lng());
+      });
+
+    }
+
+    getUserPosition(initMap);
+
+    </script>
+</body>
 </html>
+
+<!--
+var watchID = geo.watchPosition(
+
+// Position was successfully retrieved
+function(position) {
+
+onSuccess && onSuccess({
+'latitude': position.coords.latitude,
+'longitude': position.coords.latitude,
+'accuracy': position.coords.accuracy
+});
+
+},
+
+function(err) {
+if (typeof onError == 'function')
+onError(err);
+},
+
+// Options
+{
+enableHighAccuracy: highAccuracy,
+maximumAge: timeout,
+timeout: geoTimeout
+}
+);
+
+return watchID;
+}
+
+this.clearWatch = function(watchID)
+{
+var geo = this.getApi();
+
+if(geo !== null)
+geo.clearWatch(watchID);
+}
+-->
