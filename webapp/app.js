@@ -1,0 +1,1 @@
+meterQuest = angular.module('meterQuest', []);

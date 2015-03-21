@@ -20,7 +20,7 @@ paths =
   dest        : "public"
   packagejson : "./package.json"
   partials    : "partials/*.jade"
-  scripts     : "webapp/**/*.coffee"
+  scripts     : "webapp/**/*.js"
   server      : "server/*.coffee"
   styles      : "webapp/stylesheets/**/*.styl"
   views       : "views/*.jade"
@@ -70,9 +70,7 @@ gulp.task "server-scripts", ->
 
 gulp.task "scripts", ->
   gulp.src paths.scripts
-    .pipe coffee()
-    .pipe uglify()
-    .pipe concat "all.min.js"
+    .pipe concat "all.js"
     .pipe gulp.dest paths.dest + "/scripts"
     .pipe livereload()
 
