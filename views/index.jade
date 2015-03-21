@@ -12,8 +12,12 @@ html(lang="en" ng-app="meterQuest")
     div(rp-nav-bar)
     h1 Hello World
 
-    script(src="angular/angular.js")
-    script(src="scripts/angular-views.min.js")
-    script(src="scripts/all.js")
-    script(src="angular-bootstrap/ui-bootstrap-tpls.min.js")
-    script(src="angular-bootstrap/ui-bootstrap.min.js")
+    div(id='map' style='width: 700px; height: 700px; margin: 50px;' ng-controller='meterQuestMap')
+
+    script(src='jquery/dist/jquery.js')
+    script(src='angular/angular.js')
+    script(src='scripts/angular-views.min.js')
+    script(src='angular-bootstrap/ui-bootstrap-tpls.min.js')
+    script(src='angular-bootstrap/ui-bootstrap.min.js')
+    script(src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false')
+    script(src='scripts/all.js')
