@@ -1,10 +1,10 @@
-angular.module('meterQuest').controller('ModalCtrl', function ($scope, $modal, $log) {
+angular.module('meterQuest').controller('UpdateModalCtrl', function ($scope, $modal, $log) {
 
   $scope.open = function () {
 
     var modalInstance = $modal.open({
-      templateUrl: 'markOpenModal.html',
-      controller: 'ModalInstanceCtrl'
+      templateUrl: 'editModal.html',
+      controller: 'UpdateModalInstanceCtrl'
     });
 
     modalInstance.result.then(function (selectedItem) {
@@ -15,13 +15,17 @@ angular.module('meterQuest').controller('ModalCtrl', function ($scope, $modal, $
   };
 });
 
-angular.module('meterQuest').controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
+angular.module('meterQuest').controller('UpdateModalInstanceCtrl', function ($scope, $modalInstance) {
 
-  $scope.ok = function () {
+  $scope.parkInSpot = function () {
     $modalInstance.close($scope.selected.item);
   };
 
-  $scope.openSpot = function () {
+  $scope.confirmOpenSpot = function () {
+    $modalInstance.close($scope.selected.item);
+  };
+
+  $scope.fullSpot = function () {
     $modalInstance.close($scope.selected.item);
   };
 

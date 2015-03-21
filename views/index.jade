@@ -11,13 +11,33 @@ html(lang="en" ng-app="meterQuest")
   body
     div(rp-nav-bar)
     h1 Hello World
+    div(ng-controller="CreateModalCtrl")
+        script(type="text/ng-template", id="markOpenModal.html")
+            div(modal-header)
+            h3(modal-title) Report open parking space
+                div(modal-body)
+                    button(class="btn btn-primary" ng-click="openSpot()") Spot open
+                    button(class="btn btn-primary" ng-click="cancel()") Cancel
+        button(class="btn btn-default" ng-click="open()") Add open spot
+
+    div(ng-controller="UpdateModalCtrl")
+        script(type="text/ng-template", id="editModal.html")
+            div(modal-header)
+            h3(modal-title) Confirm or change status of parking spot
+                div(modal-body)
+                    button(class="btn btn-primary" ng-click="parkInSpot()") Park in spot
+                    button(class="btn btn-primary" ng-click="confirmOpenSpot()") Confirm open
+                    button(class="btn btn-primary" ng-click="fullSpot()") Spot now filled
+                    button(class="btn btn-primary" ng-click="cancel()") Cancel
+        button(class="btn btn-default" ng-click="open()") Edit spot
 
     div(id='map' style='width: 700px; height: 700px; margin: 50px;' ng-controller='meterQuestMap')
 
     script(src='jquery/dist/jquery.js')
     script(src='angular/angular.js')
     script(src='scripts/angular-views.min.js')
-    script(src='angular-bootstrap/ui-bootstrap-tpls.min.js')
     script(src='angular-bootstrap/ui-bootstrap.min.js')
+    script(src='angular-bootstrap/ui-bootstrap-tpls.min.js')
     script(src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false')
     script(src='scripts/all.js')
+
