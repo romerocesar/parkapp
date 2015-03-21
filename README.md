@@ -13,3 +13,9 @@ http://gisrevprxy.seattle.gov/ArcGIS/rest/services/SDOT_EXT/DSG_datasharing/MapS
 
 other SDOT data
 http://gisrevprxy.seattle.gov/ArcGIS/rest/services/SDOT_EXT/DSG_datasharing/MapServer
+
+# Git Etiquette
++ Commits must have only one parent (rebase instead of merging)
++ Write descriptive commit messages
++ Don't push broken or incomplete code to master
++ Use feature branches locally

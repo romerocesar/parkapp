@@ -4,7 +4,9 @@
   "authors": [
     "Doug Wade",
     "Piera Damonte",
-    "Logan Franken"
+    "Logan Franken",
+    "Deirdre Allison",
+    "Peter Shaw"
   ],
   "description": "Crowd source open parking spots in Seattle",
   "main": "app.js",
