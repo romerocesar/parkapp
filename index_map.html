@@ -67,6 +67,30 @@
 
     }
 
+    function getParkingUrl() {
+
+      var baseUrl = "http://gisrevprxy.seattle.gov/ArcGIS/rest/services/SDOT_EXT/sdot_parking/MapServer/7/query?";
+
+      var params = 'f=json'
+        + '&returnGeometry=true'
+        + '&spatialRel=esriSpatialRelIntersects'
+        + '&maxAllowableOffset=19'
+        + '&geometry={'
+            + '"xmin":-13609460.012127195,'
+            + '"ymin":6032252.681953923,'
+            + '"xmax":-13599676.072506705,'
+            + '"ymax":6042036.621574413,'
+            + '"spatialReference":{"wkid":102100,"latestWkid":3857}}'
+        + '&geometryType=esriGeometryEnvelope'
+        + '&inSR=102100'
+        + '&outFields=OBJECTID,PARKING_CATEGORY'
+        + '&outSR=102100'
+        + '&callback=dojo.io.script.jsonp_dojoIoScript_Street_Parking_by_Category70_19_10925707126888_1_657._jsonpCallback';
+
+        return baseUrl + params;
+
+    }
+
     getUserPosition(initMap);
 
     </script>
