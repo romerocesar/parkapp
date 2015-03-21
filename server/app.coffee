@@ -25,6 +25,7 @@ app.use bodyParser()
 app.use router app
 render = views "views/"
 app.use serve "public/"
+app.use serve "bower_components/"
 require("koa-qs")(app)
 
 app.get "/", ->*

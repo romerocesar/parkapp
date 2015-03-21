@@ -40,6 +40,7 @@ gulp.task "angular-views", ->
 gulp.task "bower", ->
   gulp.src [paths.bowerjson]
     .pipe install()
+    .pipe gulp.dest paths.bower
 
 gulp.task "clean", ->
   gulp.src [paths.build, paths.dest, "bower_components", "app.js"]
@@ -96,5 +97,5 @@ gulp.task "watch", ->
   gulp.watch paths.bowerjson   , ["bower"]
   gulp.watch paths.partials    , ["angular-views"]
 
-gulp.task "default", ["views", "angular-views", "styles", "scripts", "server-scripts", "watch", "server"]
+gulp.task "default", [ "bower", "views", "angular-views", "styles", "scripts", "server-scripts", "watch", "server"]
 gulp.task "deps", ["npm", "bower"]
