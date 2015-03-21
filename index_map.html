@@ -25,7 +25,11 @@
     <script src="http://js.arcgis.com/3.13/"></script>
     <script type="text/javascript">
 
-    require(["esri/geometry/webMercatorUtils", "esri/SpatialReference", "esri/geometry/Point"], function(WebMercatorUtils, SpatialReference, Point) {
+    function getJsonp(response) {
+      console.log(response);
+    }
+
+    require(["esri/geometry/webMercatorUtils", "esri/SpatialReference", "esri/geometry/Point", "esri/geometry/Circle"], function(WebMercatorUtils, SpatialReference, Point, Circle) {
 
       // Gets the user's position
       function getUserPosition(success) {
@@ -64,32 +68,48 @@
 
         google.maps.event.addListener(map, "click", function(event)
         {
-          console.log(event.latLng.lat());
-          console.log(event.latLng.lng());
+          // Get the latitude and longitude selected by the user
+          var lat = event.latLng.lat();
+          var lon = event.latLng.lng();
+
+          // Retrieve the X and Y coordinates
+          var coords = convertCoordinates(lat, lon);
+
+          // Get the bounding box
+          var bound = getBoundingBox(coords.x, coords.y);
+
+          // Construct the request URL
+          var url = getParkingUrl(
+            bound.xmin, bound.ymin, bound.xmax, bound.ymax, 'getJsonp');
+
+          var script = document.createElement('script');
+          script.src = url;
+
+          document.getElementsByTagName('head')[0].appendChild(script);
         });
 
       }
 
       // Generates a URL that can be used to request parking category data
-      function getParkingUrl() {
+      function getParkingUrl(xmin, ymin, xmax, ymax, callback) {
 
-        var baseUrl = "http://gisrevprxy.seattle.gov/ArcGIS/rest/services/SDOT_EXT/sdot_parking/MapServer/7/query?";
+        var baseUrl = "//gisrevprxy.seattle.gov/ArcGIS/rest/services/SDOT_EXT/sdot_parking/MapServer/7/query?";
 
         var params = 'f=json'
           + '&returnGeometry=true'
           + '&spatialRel=esriSpatialRelIntersects'
           + '&maxAllowableOffset=19'
-          + '&geometry={'
-              + '"xmin":-13609460.012127195,'
-              + '"ymin":6032252.681953923,'
-              + '"xmax":-13599676.072506705,'
-              + '"ymax":6042036.621574413,'
-              + '"spatialReference":{"wkid":102100,"latestWkid":3857}}'
+          + '&geometry=' + encodeURIComponent('{'
+              + '"xmin":' + xmin + ','
+              + '"ymin":' + ymin + ','
+              + '"xmax":' + xmax + ','
+              + '"ymax":' + ymax + ','
+              + '"spatialReference":{"wkid":102100,"latestWkid":3857}}')
           + '&geometryType=esriGeometryEnvelope'
           + '&inSR=102100'
           + '&outFields=OBJECTID,PARKING_CATEGORY'
           + '&outSR=102100'
-          + '&callback=dojo.io.script.jsonp_dojoIoScript_Street_Parking_by_Category70_19_10925707126888_1_657._jsonpCallback';
+          + '&callback=' + callback;
 
           return baseUrl + params;
 
@@ -97,27 +117,49 @@
 
       // Returns a bounding box based on the specified X, Y coordinate
       function getBoundingBox(x, y) {
-        var boundingDiff = 4892;
+
+        var spatialReference = new SpatialReference();
+        spatialReference.wkid = "102100";
+
+        var point = new Point();
+        point.spatialReference = spatialReference;
+        point.x = x;
+        point.y = y;
+
+        var circle = new Circle({
+          center: point,
+          geodesic: true,
+          radius: 50,
+          radiusUnit: "esriFeet"
+        });
+
+        var bound = circle.getExtent();
 
         return {
-          xmin: (x - boundingDiff),
-          xmax: (x + boundingDiff),
-          ymin: (y - boundingDiff),
-          ymax: (y + boundingDiff)
-        }
+          xmin: bound.xmin,
+          xmax: bound.xmax,
+          ymin: bound.ymin,
+          ymax: bound.ymax
+        };
       }
 
       // Converts latitude and longitude to X and Y coordinates
       function convertCoordinates(lat, lon) {
 
-        var result = WebMercatorUtils.lngLatToXY(lon, lat));
+        var result = WebMercatorUtils.lngLatToXY(lon, lat);
 
         return {
           x: result[0],
-          y: reslult[1]
+          y: result[1]
         };
 
       }
+
+      //console.log(convertCoordinates(47.606585, -122.336439));
+      //console.log(getBoundingBox(-13618430.094942143, 6041652.3842038615));
+
+      // -122.336439,
+      // -13618430.094942143, 6041652.3842038615
 
       getUserPosition(initMap);
 
