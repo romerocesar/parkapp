@@ -10,6 +10,15 @@ html(lang="en" ng-app="meterQuest")
   body
     div(rp-nav-bar)
     h1 Hello World
+    div(ng-controller="ModalCtrl")
+        script(type="text/ng-template", id="markOpenModal.html")
+        div(modal-header)
+            h3(modal-title) Open Spot?
+        div(modal-body)
+            button(class="btn btn-primary" ng-click="open()") Spot open
+            button(class="btn btn-primary" ng-click="closed()") Spot occupied
+            button(class="btn btn-primary" ng-click="cancel()") Cancel
+    button(class="btn btn-default" ng-click="open()") Edit spot
 
     script(src="angular/angular.js")
     script(src="scripts/angular-views.min.js")
