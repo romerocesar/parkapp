@@ -1,4 +1,4 @@
-angular.module('meterQuest', [])
+angular.module('meterQuest', ['ui.bootstrap'])
 .controller('meterQuestMap', function($log) {
 
     var map;
