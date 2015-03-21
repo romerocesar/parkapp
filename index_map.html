@@ -91,6 +91,17 @@
 
     }
 
+    function getBoundingBox(x, y) {
+      var boundingDiff = 4892;
+
+      return {
+        xmin: (x - boundingDiff),
+        xmax: (x + boundingDiff),
+        ymin: (y - boundingDiff),
+        ymax: (y + boundingDiff)
+      }
+    }
+
     getUserPosition(initMap);
 
     </script>
