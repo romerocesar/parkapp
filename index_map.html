@@ -32,6 +32,8 @@
 
       window.receiveParkingLines = function(response) {
 
+        console.log(response);
+
         // Clear parking lines
         parkingLinePaths.forEach(function(parkingLine) {
           parkingLine.setMap(null);
@@ -41,6 +43,39 @@
         // Add the parking lines
         response.features.forEach(function(parkingLine) {
 
+          // Attributes
+          var category = parkingLine.attributes.PARKING_CATEGORY;
+
+          var color = "black";
+
+          switch(category)
+          {
+              case "Carpool Parking":
+                color = "blue";
+                break;
+
+              case "Restricted Parking Zone":
+                color = "orange";
+                break;
+
+              case "Paid Parking":
+                color = "green";
+                break;
+
+              case "No Parking Allowed":
+                color = "red";
+                break;
+
+              case "Time Limited Parking":
+                color = "yellow";
+                break;
+
+              case "Unrestricted Parking":
+                color = "gray";
+                break;
+          }
+
+          // Geometry
           var linePoint1 = parkingLine.geometry.paths[0][0];
           var x1 = linePoint1[0];
           var y1 = linePoint1[1];
@@ -59,7 +94,7 @@
           var path = new google.maps.Polyline({
             path: coords,
             geodesic: true,
-            strokeColor: '#FF0000',
+            strokeColor: color,
             srokeOpacity: 1.0,
             strokeWeight: 2
           });
