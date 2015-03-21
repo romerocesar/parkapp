@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <body>
+      <div id="map" style="width: 700px; height: 700px; margin: 50px;">
+          <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+          <script type="text/javascript">
+
+          var map;
+
+          function initialize() 
+           
+            {
+              var mapOptions = 
+                {
+                     zoom: 16,
+                     center: new google.maps.LatLng(47.6097, -122.3331),
+                     mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+
+              var map = new google.maps.Map(document.getElementById('map'),
+                mapOptions);
+            
+              google.maps.event.addListener(map, "click", function(event)
+                {
+                  console.log(event.latLng.lat());
+                  console.log(event.latLng.lng());
+                });
+
+            };
+
+
+          initialize();
+
+          </script>
+      </div>
+    </body>
+  </head>
+</html>
