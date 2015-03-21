@@ -24,6 +24,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script type="text/javascript">
 
+    // Gets the user's position
     function getUserPosition(success) {
 
       navigator.geolocation.getCurrentPosition(
@@ -45,6 +46,7 @@
 
     }
 
+    // Initializes the map, centering on the specified latitude and longitude
     function initMap(latitude, longitude) {
 
       var mapOptions =
