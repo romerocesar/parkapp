@@ -27,11 +27,12 @@ angular.module('meterQuest')
 
     }
 
-    function openModal(scope, lat, lon) {
+    function openModal(scope, lat, lon, category) {
 
         scope.location = {
             lat: lat,
-            lon: lon
+            lon: lon,
+            category: category
         };
 
         $modal.open({
@@ -114,6 +115,7 @@ angular.module('meterQuest')
 
           var currentTime = +new Date();
           deltaTime = currentTime - spot.timestamp;
+          console.log(spot.category);
           console.log(deltaTime);
 
           if (deltaTime >= 1200000) {
@@ -177,7 +179,7 @@ angular.module('meterQuest')
                       return;
                     }
 
-                    openModal(scope, lat, lng);
+                    openModal(scope, lat, lng, curb.category);
 
                   });
 
