@@ -94,10 +94,10 @@ angular.module('meterQuest')
 
               // Populate the map with markers
               parkingSpotSvc.getMarkedSpots().then(function(response) {
+                console.log(response.data[0].lat);
 
-/*
-                spots.forEach(function(spot) {*/
-                  var point = new google.maps.LatLng(response.data.lat, response.data.lon);
+                response.data.forEach(function(spot) {
+                  var point = new google.maps.LatLng(spot.lat, spot.lon);
                   var marker = new google.maps.Marker({
                     position: point,
                     map: map,
@@ -107,12 +107,8 @@ angular.module('meterQuest')
                     infowindow.open(map,marker);
                   });
 
-/*
                 });
-                */
-
-
-
+                
               });
 
 /*

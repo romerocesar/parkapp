@@ -163,7 +163,7 @@ angular.module('meterQuest')
         },
 
         getMarkedSpots: function() {
-          return $http.get('/api/mockSpot');
+          return $http.get('/api/spots');
         },
 
         markSpot: function(lat, lon) {
