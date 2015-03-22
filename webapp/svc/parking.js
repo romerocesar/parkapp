@@ -116,6 +116,23 @@ angular.module('meterQuest')
 
     }
 
+    function getParkingSpots() {
+
+      $http.get('/api/mockSpot').
+        success(function(data, status, headers, config) {
+          console.log(data.timestamp);
+          return {
+            lat: data.lat,
+            lon: data.lon,
+            timestamp: data.timestamp
+          };
+        }).
+        
+        error(function(data, status, headers, config) {
+          $log.debug("Error retrieving results")
+        });
+    }
+
     return {
         foo: function(lat, lng) {
 
@@ -128,6 +145,8 @@ angular.module('meterQuest')
             // Construct the request URL
             var url = getParkingUrl(bound.xmin, bound.ymin, bound.xmax, bound.ymax);
 
+            var markerData = getParkingSpots();
+
             var deferred = $q.defer();
 
             $http.jsonp(url)
@@ -139,6 +158,7 @@ angular.module('meterQuest')
               });
 
             return deferred.promise;
+
         }
     }
 });

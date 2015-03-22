@@ -39,6 +39,36 @@ angular.module('meterQuest')
                 });
 
             });
+
+            var kmlUrl = "https://raw.githubusercontent.com/Piera/KML-for-parkapp/master/head.kml";
+            var kmlOptions = {
+              suppressInfoWindows: true,
+              preserveViewport: true,
+              map: map
+            };
+
+            var kmlLayer = new google.maps.KmlLayer(kmlUrl, kmlOptions);
+            kmlLayer.setMap(map);
+            console.log(kmlLayer);
+            console.log(kmlLayer.url);
+
+            var myLatlng = new google.maps.LatLng(47.6097, -122.3331);
+            var marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                title: 'Hello World!'
+            });
+
+            contentString = 'test marker text!'
+
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+
+            google.maps.event.addListener(marker, 'click', function() {
+                infowindow.open(map,marker);
+            });
+
         },
         restrict: 'E',
         template: '<div id="map" style="width: 700px; height: 700px; margin: 50px;"/>'
