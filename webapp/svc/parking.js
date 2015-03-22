@@ -167,9 +167,7 @@ angular.module('meterQuest')
         },
 
         markSpot: function(lat, lon) {
-
-          //$http.post
-
+          return $http.post('/api/spots', { lat: lat, lon: lon });
         }
     }
 });
