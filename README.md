@@ -25,7 +25,7 @@ We approached this problem in a number of ways:
 Our team:
 
 * [Cesar Romero](https://github.com/cromero)
-* [Deidre Allison](https://github.com/DeirdreAllison)
+* [Deirdre Allison](https://github.com/DeirdreAllison)
 * [Logan Franken](https://github.com/loganfranken)
 * [Piera Damote](https://github.com/Piera)
 * [Utah Newman](https://github.com/theutahkate)
