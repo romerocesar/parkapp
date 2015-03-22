@@ -23,10 +23,9 @@ html(lang="en" ng-app="meterQuest")
 
     script(type="text/ng-template", id="parkingSpotModal.html")
       div.modal-header
-        h3 Found a Spot?
+        h3 Found a Spot near {{location | reverseGeocode:location.lat:location.lng }?
 
       div.modal-body
-        <!-- {{location}} -->
         button.btn.btn-primary(ng-click="openSpot()") Mark It
         button.btn Nevermind
 

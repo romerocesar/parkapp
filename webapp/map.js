@@ -25,6 +25,22 @@ angular.module('meterQuest')
 
     var map;
 
+    function reverseGeocode(lat, lng) {
+      var latlng = new google.maps.LatLng(lat, lng);
+      var geocoder = new google.maps.Geocoder();
+      geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            if (results[1]) {
+                element.text(results[1].formatted_address);
+            } else {
+                element.text('Location not found');
+            }
+        } else {
+            element.text('Geocoder failed due to: ' + status);
+        }
+      });
+    }
+
     function openModal(scope, lat, lng) {
         $log.debug('Going to open modal with ' + angular.toJson({lat: lat , lng: lng}));
         scope.location = {
@@ -108,7 +124,7 @@ angular.module('meterQuest')
                   });
 
                 });
-                
+
               });
 
 /*
