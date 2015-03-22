@@ -6,18 +6,20 @@ html(lang="en" ng-app="meterQuest")
     title= "meterQuest"
 
     meta(charset="utf-8")
-
-    link(rel='stylesheet', type='text/css', href='http://fonts.googleapis.com/css?family=Montserrat')
+    link(rel='stylesheet', type='text/css', href='http://fonts.googleapis.com/css?family=Bangers')
+    link(rel='stylesheet', type='text/css', href='http://fonts.googleapis.com/css?family=Lato:400,700')
     link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.css')
     link(rel='stylesheet', href='/stylesheets/main.css')
 
   body
 
     header
-      h1
-        span.header-meter Meter
-        span.header-quest Quest
-
+      div.title-wrapper
+        h1
+          span.header-meter Meter
+          span.header-quest Quest
+        h4 Save Seattle... 
+          span.header-park one parking spot at a time
     div.map-container
       meter-quest-map
 
