@@ -25,6 +25,9 @@ html(lang="en" ng-app="meterQuest")
     div.map-container
       meter-quest-map
 
+    div.gradient-key
+      img(src="/images/gradient-key.jpg")
+
     div.user-container(ng-controller="userCtrl")
       h5
         span Welcome {{ currentUser.name }}! You currently have {{ currentUser.points }} points

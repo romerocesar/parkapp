@@ -46,6 +46,13 @@ header .title-wrapper
   color: #39AB22;
 }
 
+.gradient-key {
+  z-index: +2;
+  position: fixed;
+  top: 200px;
+  left: 50px;
+}
+
 header h1
 {
   font-size: 5em;
