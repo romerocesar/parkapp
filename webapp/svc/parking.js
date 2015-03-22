@@ -156,7 +156,7 @@ angular.module('meterQuest')
         },
 
         reportFullSpot: function(lat, lon) {
-          return $http.delete('/api/spots', { lat: lat, lon: lon });
+          return $http.delete('/api/spots?lat=' + lat + '&lon=' + lon);
         }
     }
 });

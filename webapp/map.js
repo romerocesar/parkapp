@@ -1,6 +1,10 @@
 angular.module('meterQuest')
 .directive('meterQuestMap', function($log, $modal, parkingSpotSvc) {
 
+    var map;
+    var mapMarkers = [];
+    var globalScope;
+
     // Gets the user's position
     function getUserPosition(success) {
 
@@ -23,8 +27,6 @@ angular.module('meterQuest')
 
     }
 
-    var map;
-
     function openModal(scope, lat, lon) {
 
         scope.location = {
@@ -36,8 +38,8 @@ angular.module('meterQuest')
             templateUrl: 'parkingSpotModal.html',
             controller: 'parkingSpotModalCtrl',
             scope: scope
-        }).result.then(function (selectedItem) {
-            scope.selected = selectedItem;
+        }).result.then(function () {
+            refreshMarkers();
         });
 
     }
@@ -61,24 +63,82 @@ angular.module('meterQuest')
         templateUrl: 'updateParkingSpotModal.html',
         controller: 'parkingSpotModalCtrl',
         scope: scope
-      }).result.then(function (selectedItem) {
-        scope.selected = selectedItem;
+      }).result.then(function () {
+        refreshMarkers();
       });
 
     }
 
     function dropMarker(lat, lon) {
+
       var icon = '/images/parky_marker.png'
+
       var point = new google.maps.LatLng(lat,lon);
+
       var marker = new google.maps.Marker({
         position: point,
         map: map,
         icon: icon
       });
+
+      google.maps.event.addListener(marker, 'click', function(event) {
+        var lat = event.latLng.lat();
+        var lon = event.latLng.lng();
+        openUpdateParkingSpotModal(globalScope, lat, lon);
+      });
+
+      mapMarkers.push(marker);
+
+    }
+
+    function clearMarkers() {
+
+      mapMarkers.forEach(function(marker) {
+        marker.setMap(null);
+      });
+
+      mapMarkers = [];
+
+    }
+
+    function refreshMarkers() {
+
+      // Populate the map with markers
+      parkingSpotSvc.getMarkedSpots().then(function(response) {
+
+        // Remove all filters
+        clearMarkers();
+
+        // Add the markers returned from the service
+        response.data.forEach(function(spot) {
+
+          var currentTime = +new Date();
+          deltaTime = currentTime - spot.timestamp;
+          console.log(deltaTime);
+
+          if (deltaTime >= 1200000) {
+            icon = '/images/parky_marker.png';
+            console.log("Over 20 minutes old");
+          } else if (600000 <= deltaTime && deltaTime < 1200000) {
+            icon = 'https://raw.githubusercontent.com/Piera/Project/master/MVC/static/img/marker_blue.png';
+            console.log("Between 10 and 20 minutes old");
+          } else {
+            icon = 'https://raw.githubusercontent.com/Piera/Project/master/MVC/static/img/white-google-map-pin-md.png';
+            console.log("Under 10 minutes old");
+          }
+
+          dropMarker(spot.lat, spot.lon);
+
+        });
+
+      });
+
     }
 
     return {
         link: function(scope, elem, attr) {
+
+            globalScope = scope;
 
             getUserPosition(function(lat, lon) {
 
@@ -115,47 +175,14 @@ angular.module('meterQuest')
                       openNoParkingFoundModal();
                       return;
                     }
+
                     openModal(scope, lat, lng);
-                    dropMarker(lat, lng);
+
                   });
 
               });
 
-              // Populate the map with markers
-              parkingSpotSvc.getMarkedSpots().then(function(response) {
-
-                response.data.forEach(function(spot) {
-
-                  var currentTime = +new Date();
-                  deltaTime = currentTime - spot.timestamp;
-                  console.log(deltaTime);
-
-                  if (deltaTime >= 1200000) {
-                    icon = '/images/parky_marker.png';
-                    console.log("Over 20 minutes old");
-                  } else if (600000 <= deltaTime && deltaTime < 1200000) {
-                    icon = 'https://raw.githubusercontent.com/Piera/Project/master/MVC/static/img/marker_blue.png';
-                    console.log("Between 10 and 20 minutes old");
-                  } else {
-                    icon = 'https://raw.githubusercontent.com/Piera/Project/master/MVC/static/img/white-google-map-pin-md.png';
-                    console.log("Under 10 minutes old");
-                  }
-                  var point = new google.maps.LatLng(spot.lat, spot.lon);
-                  var marker = new google.maps.Marker({
-                    position: point,
-                    map: map,
-                    icon: icon
-                  });
-
-                  google.maps.event.addListener(marker, 'click', function(event) {
-                    var lat = event.latLng.lat();
-                    var lon = event.latLng.lng();
-                    openUpdateParkingSpotModal(scope, lat, lon);
-                  });
-
-                });
-
-              });
+              refreshMarkers();
 
               /*
 
