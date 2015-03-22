@@ -215,10 +215,7 @@ angular.module('meterQuest')
               });
 
               refreshMarkers();
-
-              /*
-
-              var kmlUrl = "https://raw.githubusercontent.com/Piera/KML-for-parkapp/master/head.kml";
+              var kmlUrl = "https://raw.githubusercontent.com/jterrace/seattle-neighborhoods/master/data.kml";
               var kmlOptions = {
                 suppressInfoWindows: true,
                 preserveViewport: true,
@@ -229,8 +226,6 @@ angular.module('meterQuest')
               kmlLayer.setMap(map);
               console.log(kmlLayer);
               console.log(kmlLayer.url);
-
-              */
 
           });
 
