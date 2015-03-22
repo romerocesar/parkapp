@@ -15,6 +15,8 @@ other SDOT data
 http://gisrevprxy.seattle.gov/ArcGIS/rest/services/SDOT_EXT/DSG_datasharing/MapServer
 
 # Git Etiquette
+
+[![Join the chat at https://gitter.im/cromero/parkapp](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/cromero/parkapp?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 + Commits must have only one parent (rebase instead of merging)
 + Write descriptive commit messages
 + Don't push broken or incomplete code to master
