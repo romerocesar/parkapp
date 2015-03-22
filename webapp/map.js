@@ -118,7 +118,8 @@ angular.module('meterQuest')
 
           if (deltaTime >= 1200000) {
             icon = '/images/parky_marker.png';
-            console.log("Over 20 minutes old");
+            console.log("Over 20 minutes old - discard");
+            return;
           } else if (600000 <= deltaTime && deltaTime < 1200000) {
             icon = 'https://raw.githubusercontent.com/Piera/Project/master/MVC/static/img/marker_blue.png';
             console.log("Between 10 and 20 minutes old");
