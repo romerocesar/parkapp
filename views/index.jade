@@ -29,7 +29,7 @@ html(lang="en" ng-app="meterQuest")
     script(type="text/ng-template", id="parkingSpotModal.html")
       div.modal-header
         h3 Found a Spot near&nbsp;
-            reverse-geocode(lat = "{{location.lat}}" lng="{{location.lng}}")
+            reverse-geocode(lat="{{location.lat}}" lon="{{location.lon}}")
             span ?
 
       div.modal-body

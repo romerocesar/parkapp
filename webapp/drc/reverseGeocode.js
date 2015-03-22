@@ -1,10 +1,11 @@
 angular.module('meterQuest')
-  .directive('reverseGeocode', function() {
+  .directive('reverseGeocode', function($log) {
     return {
       restrict: 'E',
       link: function (scope, element, attrs) {
         var geocoder = new google.maps.Geocoder();
-        var latlng = new google.maps.LatLng(attrs.lat, attrs.lng);
+        var latlng = new google.maps.LatLng(attrs.lat, attrs.lon);
+        $log.debug('lat: ' + attrs.lat + 'lng: ' + attrs.lon);
         geocoder.geocode({ 'latLng': latlng}, function (results, status) {
           if (status === google.maps.GeocoderStatus.OK) {
             if (results[1]) {
