@@ -8,6 +8,7 @@ html(lang="en" ng-app="meterQuest")
     meta(charset="utf-8")
     link(rel='stylesheet', type='text/css', href='http://fonts.googleapis.com/css?family=Bangers')
     link(rel='stylesheet', type='text/css', href='http://fonts.googleapis.com/css?family=Lato:400,700')
+    link(rel='stylesheet', href='/angular-ui-notification/dist/angular-ui-notification.min.css')
     link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.css')
     link(rel='stylesheet', href='/stylesheets/main.css')
 
@@ -20,11 +21,19 @@ html(lang="en" ng-app="meterQuest")
           span.header-quest Quest
         h4 Save Seattle... 
           span.header-park one parking spot at a time
+          
     div.map-container
       meter-quest-map
 
     div.user-container(ng-controller="userCtrl")
-      user-scoreboard
+      h5
+        span Welcome {{ currentUser.name }}! You currently have {{ currentUser.points }} points
+      div
+        span(ng-repeat="badge in currentUser.badges" style="float: left")
+          h6 {{ badge.name }}
+          img(src="{{ badge.url }}" title="{{ badge.alt }}")
+      button.btn.btn-primary(ng-click="toggleUser()") Log out
+
 
     script(type="text/ng-template", id="parkingSpotModal.html")
       div.modal-header
@@ -57,6 +66,7 @@ html(lang="en" ng-app="meterQuest")
     script(src='scripts/angular-views.min.js')
     script(src='angular-bootstrap/ui-bootstrap.min.js')
     script(src='angular-bootstrap/ui-bootstrap-tpls.min.js')
+    script(src='angular-ui-notification/dist/angular-ui-notification.min.js')
     script(src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false')
     script(src='http://js.arcgis.com/3.13/')
     script(src='scripts/all.js')

@@ -1,12 +1,16 @@
 angular.module('meterQuest')
   .service('userSvc', function($log, mockUsers) {
     $log.debug("userSvc initialized with " + mockUsers.length + " mock users.");
-    var currentUser = 0;
+    var currentUser = 0,
+        users = mockUsers;
 
     return {
-      mockUsers: mockUsers,
+      users: users,
+      addPoints: function(points) {
+        users[currentUser].points += points;
+      },
       getUser: function() {
-        return mockUsers[currentUser];
+        return users[currentUser];
       },
       // It's kind of like log-in / log-out...
       toggleUser: function() {
