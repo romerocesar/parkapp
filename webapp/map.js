@@ -64,6 +64,16 @@ angular.module('meterQuest')
       });
     }
 
+    function dropMarker(lat, lon) {
+      var icon = '/images/parky_marker.png'
+      var point = new google.maps.LatLng(lat,lon);
+      var marker = new google.maps.Marker({
+        position: point,
+        map: map,
+        icon: icon
+      });
+    }
+
     return {
         link: function(scope, elem, attr) {
 
@@ -102,22 +112,36 @@ angular.module('meterQuest')
                       openNoParkingFoundModal();
                       return;
                     }
-
                     openModal(scope, lat, lng);
+                    dropMarker(lat, lng);
                   });
 
               });
 
               // Populate the map with markers
               parkingSpotSvc.getMarkedSpots().then(function(response) {
-                console.log(response.data[0].lat);
 
                 response.data.forEach(function(spot) {
+
+                  var currentTime = +new Date();
+                  deltaTime = currentTime - spot.timestamp;
+                  console.log(deltaTime);
+
+                  if (deltaTime >= 1200000) {
+                    icon = '/images/parky_marker.png';
+                    console.log("Over 20 minutes old");
+                  } else if (600000 <= deltaTime && deltaTime < 1200000) {
+                    icon = 'https://raw.githubusercontent.com/Piera/Project/master/MVC/static/img/marker_blue.png';
+                    console.log("Between 10 and 20 minutes old");
+                  } else {
+                    icon = 'https://raw.githubusercontent.com/Piera/Project/master/MVC/static/img/white-google-map-pin-md.png';
+                    console.log("Under 10 minutes old");
+                  }
                   var point = new google.maps.LatLng(spot.lat, spot.lon);
                   var marker = new google.maps.Marker({
                     position: point,
                     map: map,
-                    icon: '/images/parky_marker.png'
+                    icon: icon
                   });
                   google.maps.event.addListener(marker, 'click', function() {
                     infowindow.open(map,marker);
@@ -127,7 +151,8 @@ angular.module('meterQuest')
 
               });
 
-/*
+              /*
+
               var kmlUrl = "https://raw.githubusercontent.com/Piera/KML-for-parkapp/master/head.kml";
               var kmlOptions = {
                 suppressInfoWindows: true,
@@ -140,22 +165,6 @@ angular.module('meterQuest')
               console.log(kmlLayer);
               console.log(kmlLayer.url);
 
-              var myLatlng = new google.maps.LatLng(47.6097, -122.3331);
-              var marker = new google.maps.Marker({
-                  position: myLatlng,
-                  map: map,
-                  title: 'Hello World!'
-              });
-
-              contentString = 'test marker text!'
-
-              var infowindow = new google.maps.InfoWindow({
-                  content: contentString
-              });
-
-              google.maps.event.addListener(marker, 'click', function() {
-                  infowindow.open(map,marker);
-              });
               */
 
           });
