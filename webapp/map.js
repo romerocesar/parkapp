@@ -14,7 +14,9 @@ angular.module('meterQuest')
             google.maps.event.addListener(map, "click", function(event) {
                 var lat = event.latLng.lat();
                 var lng = event.latLng.lng();
-                parkingSpotSvc.foo(lat, lng);
+                parkingSpotSvc.foo(lat, lng).then(function(result) {
+                  $log.debug(result);
+                });
             });
         },
         restrict: 'E',

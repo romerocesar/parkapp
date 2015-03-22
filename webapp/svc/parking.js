@@ -1,5 +1,5 @@
 angular.module('meterQuest')
-.service('parkingSpotSvc', function($log, $http) {
+.service('parkingSpotSvc', function($log, $http, $q) {
 
     // Converts latitude and longitude to X and Y coordinates
     function convertLatLonToXY(lat, lon) {
@@ -9,6 +9,18 @@ angular.module('meterQuest')
       return {
         x: result[0],
         y: result[1]
+      };
+
+    }
+
+    // Converts X and Y coordinates to latitude and longitude
+    function convertXYToLatLon(x, y) {
+
+      var result = ESRI.WebMercatorUtils.xyToLngLat(x, y);
+
+      return {
+        lat: result[1],
+        lon: result[0]
       };
 
     }
@@ -66,6 +78,44 @@ angular.module('meterQuest')
 
     }
 
+    // Parses JSON data from ArcGIS services into parking curbs
+    function parseParkingCurbs(data) {
+
+      var curbs = [];
+
+      data.features.forEach(function(curb) {
+
+        // Category
+        var category = curb.attributes.PARKING_CATEGORY;
+
+        // Geometry
+        var linePoint1 = curb.geometry.paths[0][0];
+        var x1 = linePoint1[0];
+        var y1 = linePoint1[1];
+        var coord1 = convertXYToLatLon(x1, y1);
+
+        var linePoint2 = curb.geometry.paths[0][1];
+        var x2 = linePoint2[0];
+        var y2 = linePoint2[1];
+        var coord2 = convertXYToLatLon(x2, y2);
+
+        curbs.push({
+
+          category: category,
+
+          line: [
+            { lat: coord1.lat, lon: coord1.lon },
+            { lat: coord2.lat, lon: coord2.lon }
+          ]
+
+        });
+
+      });
+
+      return curbs;
+
+    }
+
     return {
         foo: function(lat, lng) {
 
@@ -78,85 +128,45 @@ angular.module('meterQuest')
             // Construct the request URL
             var url = getParkingUrl(bound.xmin, bound.ymin, bound.xmax, bound.ymax);
 
+            var deferred = $q.defer();
+
             $http.jsonp(url)
               .success(function(data, status, headers, config) {
-                $log.debug(data);
+                deferred.resolve(parseParkingCurbs(data));
               })
               .error(function(data, status, headers, config) {
                 $log.debug("Error retrieving results")
               });
 
-              /*
-
-              // Clear parking lines
-              parkingLinePaths.forEach(function(parkingLine) {
-              parkingLine.setMap(null);
-            });
-            parkingLinePaths = [];
-
-            // Add the parking lines
-            response.features.forEach(function(parkingLine) {
-
-            // Attributes
-            var category = parkingLine.attributes.PARKING_CATEGORY;
-
-            var color = "black";
-
-            switch(category)
-            {
-            case "Carpool Parking":
-            color = "blue";
-            break;
-
-            case "Restricted Parking Zone":
-            color = "orange";
-            break;
-
-            case "Paid Parking":
-            color = "green";
-            break;
-
-            case "No Parking Allowed":
-            color = "red";
-            break;
-
-            case "Time Limited Parking":
-            color = "yellow";
-            break;
-
-            case "Unrestricted Parking":
-            color = "gray";
-            break;
-          }
-
-          // Geometry
-          var linePoint1 = parkingLine.geometry.paths[0][0];
-          var x1 = linePoint1[0];
-          var y1 = linePoint1[1];
-          var coord1 = convertXYToLatLon(x1, y1);
-
-          var linePoint2 = parkingLine.geometry.paths[0][1];
-          var x2 = linePoint2[0];
-          var y2 = linePoint2[1];
-          var coord2 = convertXYToLatLon(x2, y2);
-
-          var coords = [
-          new google.maps.LatLng(coord1.lat, coord1.lon),
-          new google.maps.LatLng(coord2.lat, coord2.lon)
-          ];
-
-          var path = new google.maps.Polyline({
-          path: coords,
-          geodesic: true,
-          strokeColor: color,
-          srokeOpacity: 1.0,
-          strokeWeight: 2
-        });
-
-        path.setMap(map);
-
-        parkingLinePaths.push(path);
-        */
+            return deferred.promise;
         }
     }
 });
+
+
+
+/*
+
+// Clear parking lines
+parkingLinePaths.forEach(function(parkingLine) {
+parkingLine.setMap(null);
+});
+parkingLinePaths = [];
+
+var coords = [
+new google.maps.LatLng(coord1.lat, coord1.lon),
+new google.maps.LatLng(coord2.lat, coord2.lon)
+];
+
+var path = new google.maps.Polyline({
+path: coords,
+geodesic: true,
+strokeColor: color,
+srokeOpacity: 1.0,
+strokeWeight: 2
+});
+
+path.setMap(map);
+
+parkingLinePaths.push(path);
+*/
