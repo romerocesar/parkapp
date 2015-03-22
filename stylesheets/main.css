@@ -160,12 +160,18 @@ header h4 .header-park
   border: solid #fff 1px;
   font-style: normal;
   width: 20%;
+  background-color: #aaa;
 }
 
 .modal-body button.btn:hover
 {
-  background-color: #39AB22;
+  background-color: #333;
+  color: white;
 }
-.btn-primary {
+.modal-body button.btn-primary {
   background-color: #2d881b;
+}
+
+.modal-body button.btn-primary:hover {
+  background-color: #16440d;
 }
