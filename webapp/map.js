@@ -27,12 +27,13 @@ angular.module('meterQuest')
 
     }
 
-    function openModal(scope, lat, lon, category) {
+    function openModal(scope, lat, lon, category, rate) {
 
         scope.location = {
             lat: lat,
             lon: lon,
-            category: category
+            category: category,
+            rate: rate
         };
 
         $modal.open({
@@ -53,11 +54,12 @@ angular.module('meterQuest')
 
     }
 
-    function openUpdateParkingSpotModal(scope, lat, lon) {
+    function openUpdateParkingSpotModal(scope, lat, lon, rate) {
 
       scope.location = {
         lat: lat,
-        lon: lon
+        lon: lon,
+        rate: rate
       };
 
       $modal.open({
@@ -70,7 +72,7 @@ angular.module('meterQuest')
 
     }
 
-    function dropMarker(lat, lon, icon) {
+    function dropMarker(lat, lon, rate, icon) {
 
       var point = new google.maps.LatLng(lat,lon);
 
@@ -83,7 +85,7 @@ angular.module('meterQuest')
       google.maps.event.addListener(marker, 'click', function(event) {
         var lat = event.latLng.lat();
         var lon = event.latLng.lng();
-        openUpdateParkingSpotModal(globalScope, lat, lon);
+        openUpdateParkingSpotModal(globalScope, lat, lon, rate);
       });
 
       mapMarkers.push(marker);
@@ -152,7 +154,7 @@ angular.module('meterQuest')
             }
           }
 
-          dropMarker(spot.lat, spot.lon, icon);
+          dropMarker(spot.lat, spot.lon, spot.rate, icon);
 
         });
 
@@ -201,7 +203,13 @@ angular.module('meterQuest')
                       return;
                     }
 
-                    openModal(scope, lat, lng, curb.category);
+                    var rate = null;
+                    if(curb.category === "Paid Parking")
+                    {
+                      rate = curb.rate;
+                    }
+
+                    openModal(scope, lat, lng, curb.category, rate);
 
                   });
               });

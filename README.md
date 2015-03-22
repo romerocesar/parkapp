@@ -29,7 +29,7 @@ Our team:
 * [Logan Franken](https://github.com/loganfranken)
 * [Piera Damote](https://github.com/Piera)
 * [Utah Newman](https://github.com/theutahkate)
-* [Peter Shaw]()
+* [Peter Shaw](https://www.linkedin.com/profile/view?id=16890971)
 * [Doug Wade](https://github.com/prekolna)
 
 ## Technologies, APIs, and Datasets Utilized

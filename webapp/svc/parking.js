@@ -70,7 +70,7 @@ angular.module('meterQuest')
       + '"spatialReference":{"wkid":102100,"latestWkid":3857}}')
       + '&geometryType=esriGeometryEnvelope'
       + '&inSR=102100'
-      + '&outFields=OBJECTID,PARKING_CATEGORY'
+      + '&outFields=OBJECTID,PARKING_CATEGORY,RATE'
       + '&outSR=102100'
       + '&callback=JSON_CALLBACK';
 
@@ -88,6 +88,9 @@ angular.module('meterQuest')
         // Category
         var category = curb.attributes.PARKING_CATEGORY;
 
+        // Rate
+        var rate = curb.attributes.RATE;
+
         // Geometry
         var linePoint1 = curb.geometry.paths[0][0];
         var x1 = linePoint1[0];
@@ -102,6 +105,7 @@ angular.module('meterQuest')
         curbs.push({
 
           category: category,
+          rate: rate,
 
           line: [
             { lat: coord1.lat, lon: coord1.lon },
@@ -147,8 +151,8 @@ angular.module('meterQuest')
           return $http.get('/api/spots');
         },
 
-        markSpot: function(lat, lon, category) {
-          return $http.post('/api/spots', { lat: lat, lon: lon, category: category });
+        markSpot: function(lat, lon, category, rate) {
+          return $http.post('/api/spots', { lat: lat, lon: lon, category: category, rate: rate });
         },
 
         parkInSpot: function(lat, lon) {
@@ -160,30 +164,3 @@ angular.module('meterQuest')
         }
     }
 });
-
-
-/*
-
-// Clear parking lines
-parkingLinePaths.forEach(function(parkingLine) {
-parkingLine.setMap(null);
-});
-parkingLinePaths = [];
-
-var coords = [
-new google.maps.LatLng(coord1.lat, coord1.lon),
-new google.maps.LatLng(coord2.lat, coord2.lon)
-];
-
-var path = new google.maps.Polyline({
-path: coords,
-geodesic: true,
-strokeColor: color,
-srokeOpacity: 1.0,
-strokeWeight: 2
-});
-
-path.setMap(map);
-
-parkingLinePaths.push(path);
-*/

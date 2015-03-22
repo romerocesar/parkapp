@@ -4,7 +4,7 @@ function($log, $modalInstance, $scope, parkingSpotSvc, userSvc, Notification) {
     $log.debug('entering the parking spot modal with scope: ' + angular.toJson($scope.location));
 
     $scope.openSpot = function () {
-        parkingSpotSvc.markSpot($scope.location.lat, $scope.location.lon, $scope.location.category);
+        parkingSpotSvc.markSpot($scope.location.lat, $scope.location.lon, $scope.location.category, $scope.location.rate);
         $modalInstance.close();
         userSvc.addPoints(5);
         Notification.success({ message: "You got 5 points for finding an open spot!" });

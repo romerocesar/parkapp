@@ -181,3 +181,14 @@ header h4 .header-park
 .modal-body button.btn-primary:hover {
   background-color: #16440d;
 }
+
+.rate-desc
+{
+  font-size: 2.5em;
+  margin: 0 0 20px 0;
+}
+
+.rate-amount
+{
+  font-weight: bold;
+}

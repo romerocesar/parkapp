@@ -19,7 +19,7 @@ html(lang="en" ng-app="meterQuest")
         h1
           span.header-meter Meter
           span.header-quest Quest
-        h4 Save Seattle... 
+        h4 Save Seattle...
           span.header-park one parking spot at a time
           
     div.map-container
@@ -57,6 +57,10 @@ html(lang="en" ng-app="meterQuest")
         h3 Found a Spot!
 
       div.modal-body
+        div.rate-desc(ng-if="location.rate != null")
+          span Rate: 
+          span.rate-amount ${{location.rate}}/hour
+
         button.btn.btn-primary(ng-click="parkInSpot()") Park Here
         button.btn.btn-primary(ng-click="fullSpot()") Spot is Full
         button.btn(ng-click="cancel()") Cancel
