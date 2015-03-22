@@ -7,7 +7,13 @@ spots reported by users.
 This application was developed on the weekend of 3/20 - 3/22 as part of the
 [Hack the Commute](http://hackthecommute.seattle.gov/) hackathon.
 
-![Screenshot of MeterQuest](screenshot.jpg)
+![Screenshot of parking heat map](screenshot_4.png)
+
+![Screenshot of MeterQuest](screenshot_1.png)
+
+![Screenshot of user marking a spot in MeterQuest](screenshot_2.png)
+
+![Screenshot of user finding a spot in MeterQuest](screenshot_3.png)
 
 ## Challenge and Approach
 
