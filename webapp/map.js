@@ -1,5 +1,5 @@
 angular.module('meterQuest')
-.directive('meterQuestMap', function($log) {
+.directive('meterQuestMap', function($log, parkingSpotSvc) {
 
     var map;
     var mapOptions = {
@@ -12,8 +12,9 @@ angular.module('meterQuest')
         link: function(scope, elem, attr) {
             map = new google.maps.Map(document.getElementById('map'), mapOptions);
             google.maps.event.addListener(map, "click", function(event) {
-                $log.info(event.latLng.lat());
-                $log.info(event.latLng.lng());
+                var lat = event.latLng.lat();
+                var lng = event.latLng.lng();
+                parkingSpotSvc.foo(lat, lng);
             });
         },
         restrict: 'E',
