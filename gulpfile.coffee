@@ -23,7 +23,7 @@ paths =
   scripts     : "webapp/**/*.js"
   server      : "server/*.coffee"
   styles      : "./stylesheets/**/*.css"
-  images      : "./images/**/*.png"
+  images      : "./images/**/*.*"
   views       : "views/*.jade"
 
 gulp.task "angular-views", ->
