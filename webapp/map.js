@@ -219,6 +219,8 @@ angular.module('meterQuest')
               var kmlOptions = {
                 suppressInfoWindows: true,
                 preserveViewport: true,
+                clickable: false,
+                zIndex: -1,
                 map: map
               };
 
