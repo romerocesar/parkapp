@@ -10,11 +10,6 @@
   background-color: #428bca;
 }
 
-/*#gitlink {
-  color: red;
-}*/
-
-
 html, body
 {
   height: 100%;
@@ -39,7 +34,8 @@ header
 
 header .title-wrapper
 {
-  /*background: url(../images/parky_tilted.png) no-repeat 0 -50%;*/
+  background: url(../images/parky_tilted.png) no-repeat -15% 20%;
+  background-size: 250px 250px;
   height: 100%;
   margin: 0 auto;
   padding: 1px 0 0 0;
@@ -67,11 +63,12 @@ header h4 {
   text-align: center;
 }
 
-header:hover h1
+/*header:hover .title-wrapper
 {
-  background: url(../images/parky_tilted.png) no-repeat 0 -10%;
+  background: url(../images/parky_tilted.png) no-repeat -15% 30%;
+  background-size: 250px 250px;
 }
-
+*/
 header h1 .header-quest
 {
   color: #fff;
