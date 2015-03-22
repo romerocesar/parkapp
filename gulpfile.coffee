@@ -22,7 +22,7 @@ paths =
   partials    : "partials/*.html"
   scripts     : "webapp/**/*.js"
   server      : "server/*.coffee"
-  styles      : "webapp/stylesheets/**/*.styl"
+  styles      : "./stylesheets/**/*.css"
   views       : "views/*.jade"
 
 gulp.task "angular-views", ->
@@ -70,7 +70,6 @@ gulp.task "scripts", ->
 
 gulp.task "styles", ->
   gulp.src paths.styles
-    .pipe stylus()
     .pipe gulp.dest paths.dest + "/stylesheets"
     .pipe livereload()
 
