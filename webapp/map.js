@@ -1,12 +1,29 @@
 angular.module('meterQuest')
 .directive('meterQuestMap', function($log, $modal, parkingSpotSvc) {
 
+    // Gets the user's position
+    function getUserPosition(success) {
+
+      navigator.geolocation.getCurrentPosition(
+
+        // Success
+        function(position) {
+          success(position.coords.latitude, position.coords.longitude);
+        },
+
+        // Error
+        function(err) {
+
+          // Use the default coordinates of Moz
+          success(47.6061287, -122.335073);
+
+        }
+
+      );
+
+    }
+
     var map;
-    var mapOptions = {
-        zoom: 16,
-        center: new google.maps.LatLng(47.6097, -122.3331),
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
 
     function openModal(scope, lat, lng) {
         $log.debug('Going to open modal with ' + angular.toJson({lat: lat , lng: lng}));
@@ -27,47 +44,61 @@ angular.module('meterQuest')
 
     return {
         link: function(scope, elem, attr) {
-            map = new google.maps.Map(document.getElementById('map'), mapOptions);
-            google.maps.event.addListener(map, "click", function(event) {
-                var lat = event.latLng.lat();
-                var lng = event.latLng.lng();
 
-                openModal(scope, lat, lng);
+            getUserPosition(function(lat, lon) {
+              $log.debug(lat + ', ' + lon);
+              var mapOptions = {
+                zoom: 20,
+                center: new google.maps.LatLng(lat, lon),
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                panControl: false,
+                zoomControl: false,
+                scaleControl: false
+              };
 
-                parkingSpotSvc.foo(lat, lng).then(function(result) {
-                  $log.debug(result);
-                });
+              map = new google.maps.Map(document.getElementById('map'), mapOptions);
+              google.maps.event.addListener(map, "click", function(event) {
+                  var lat = event.latLng.lat();
+                  var lng = event.latLng.lng();
 
-            });
+                  openModal(scope, lat, lng);
 
-            var kmlUrl = "https://raw.githubusercontent.com/Piera/KML-for-parkapp/master/head.kml";
-            var kmlOptions = {
-              suppressInfoWindows: true,
-              preserveViewport: true,
-              map: map
-            };
+                  parkingSpotSvc.foo(lat, lng).then(function(result) {
+                    $log.debug(result);
+                  });
 
-            var kmlLayer = new google.maps.KmlLayer(kmlUrl, kmlOptions);
-            kmlLayer.setMap(map);
-            console.log(kmlLayer);
-            console.log(kmlLayer.url);
+              });
+/*
+              var kmlUrl = "https://raw.githubusercontent.com/Piera/KML-for-parkapp/master/head.kml";
+              var kmlOptions = {
+                suppressInfoWindows: true,
+                preserveViewport: true,
+                map: map
+              };
 
-            var myLatlng = new google.maps.LatLng(47.6097, -122.3331);
-            var marker = new google.maps.Marker({
-                position: myLatlng,
-                map: map,
-                title: 'Hello World!'
-            });
+              var kmlLayer = new google.maps.KmlLayer(kmlUrl, kmlOptions);
+              kmlLayer.setMap(map);
+              console.log(kmlLayer);
+              console.log(kmlLayer.url);
 
-            contentString = 'test marker text!'
+              var myLatlng = new google.maps.LatLng(47.6097, -122.3331);
+              var marker = new google.maps.Marker({
+                  position: myLatlng,
+                  map: map,
+                  title: 'Hello World!'
+              });
 
-            var infowindow = new google.maps.InfoWindow({
-                content: contentString
-            });
+              contentString = 'test marker text!'
 
-            google.maps.event.addListener(marker, 'click', function() {
-                infowindow.open(map,marker);
-            });
+              var infowindow = new google.maps.InfoWindow({
+                  content: contentString
+              });
+*/
+              google.maps.event.addListener(marker, 'click', function() {
+                  infowindow.open(map,marker);
+              });
+
+          });
 
         },
         restrict: 'E',
