@@ -70,9 +70,7 @@ angular.module('meterQuest')
 
     }
 
-    function dropMarker(lat, lon) {
-
-      var icon = '/images/parky_marker.png'
+    function dropMarker(lat, lon, icon) {
 
       var point = new google.maps.LatLng(lat,lon);
 
@@ -115,22 +113,46 @@ angular.module('meterQuest')
 
           var currentTime = +new Date();
           deltaTime = currentTime - spot.timestamp;
-          console.log(spot.category);
-          console.log(deltaTime);
+
+          icon = '/images/parky_marker.png';
 
           if (deltaTime >= 1200000) {
-            icon = '/images/parky_marker.png';
-            console.log("Over 20 minutes old - discard");
+
+            // If the marker is over 20 minutes old, hide it
             return;
-          } else if (600000 <= deltaTime && deltaTime < 1200000) {
-            icon = 'https://raw.githubusercontent.com/Piera/Project/master/MVC/static/img/marker_blue.png';
-            console.log("Between 10 and 20 minutes old");
-          } else {
-            icon = 'https://raw.githubusercontent.com/Piera/Project/master/MVC/static/img/white-google-map-pin-md.png';
-            console.log("Under 10 minutes old");
+
+          }
+          else if (600000 <= deltaTime && deltaTime < 1200000)
+          {
+
+            // If the marker is between 10 and 20 minures old, mark the
+            // marker as "old"
+            icon = '/images/parky_marker_old.png';
+
+          }
+          else
+          {
+            switch(spot.category)
+            {
+              case "Carpool Parking":
+                icon = '/images/parky_marker_carpool.png';
+                break;
+
+              case "Paid Parking":
+                icon = '/images/parky_marker_paid.png';
+                break;
+
+              case "Time Limited Parking":
+                icon = '/images/parky_marker_timelimited.png';
+                break;
+
+              case "Unrestricted Parking":
+                icon = '/images/parky_marker_unrestricted.png';
+                break;
+            }
           }
 
-          dropMarker(spot.lat, spot.lon);
+          dropMarker(spot.lat, spot.lon, icon);
 
         });
 

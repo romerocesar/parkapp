@@ -1,4 +1,4 @@
-angular.module('meterQuest', [ 'meterQuest.partials', 'ui.bootstrap'])
+angular.module('meterQuest', [ 'meterQuest.partials', 'ui.bootstrap', 'ui-notification' ])
 .config(function(){
   require(
     ["esri/geometry/webMercatorUtils", "esri/SpatialReference", "esri/geometry/Point", "esri/geometry/Circle"],
