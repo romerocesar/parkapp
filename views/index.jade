@@ -21,25 +21,20 @@ html(lang="en" ng-app="meterQuest")
 
   body
     div(rp-nav-bar)
-    div(ng-controller="CreateModalCtrl")
-        script(type="text/ng-template", id="markOpenModal.html")
+    h1 Parking spots FTW!
+    div
+     script(type="text/ng-template", id="parkingSpotModal.html")
             div(modal-header)
-            h3(modal-title) Report open parking space
+            h3(modal-title) Report open parking space at {{location}}
                 div(modal-body)
                     button(class="btn btn-primary" ng-click="openSpot()") Spot open
-                    button(class="btn btn-primary" ng-click="cancel()") Cancel
-        button(class="btn btn-default" ng-click="open()") Add open spot
 
-    div(ng-controller="UpdateModalCtrl")
-        script(type="text/ng-template", id="editModal.html")
-            div(modal-header)
             h3(modal-title) Confirm or change status of parking spot
                 div(modal-body)
                     button(class="btn btn-primary" ng-click="parkInSpot()") Park in spot
                     button(class="btn btn-primary" ng-click="confirmOpenSpot()") Confirm open
                     button(class="btn btn-primary" ng-click="fullSpot()") Spot now filled
-                    button(class="btn btn-primary" ng-click="cancel()") Cancel
-        button(class="btn btn-default" ng-click="open()") Edit spot
+            button(class="btn btn-default" ng-click="cancel()") Cancel
 
     meter-quest-map
 
