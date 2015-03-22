@@ -127,14 +127,15 @@ angular.module('meterQuest')
             timestamp: data.timestamp
           };
         }).
-        
+
         error(function(data, status, headers, config) {
           $log.debug("Error retrieving results")
         });
     }
 
     return {
-        foo: function(lat, lng) {
+
+        getCurbData: function(lat, lng) {
 
             // Retrieve the X and Y coordinates
             var coords = convertLatLonToXY(lat, lng);
@@ -158,6 +159,16 @@ angular.module('meterQuest')
               });
 
             return deferred.promise;
+
+        },
+
+        getMarkedSpots: function() {
+          return $http.get('/api/mockSpot');
+        },
+
+        markSpot: function(lat, lon) {
+
+          //$http.post
 
         }
     }

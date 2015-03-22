@@ -42,11 +42,18 @@ angular.module('meterQuest')
         });
     }
 
+    function openNoParkingFoundModal() {
+      $modal.open({
+        templateUrl: 'noParkingFoundModal.html'
+      });
+    }
+
     return {
         link: function(scope, elem, attr) {
 
             getUserPosition(function(lat, lon) {
-              $log.debug(lat + ', ' + lon);
+
+              // Define options for the map
               var mapOptions = {
                 zoom: 20,
                 center: new google.maps.LatLng(lat, lon),
@@ -56,18 +63,58 @@ angular.module('meterQuest')
                 scaleControl: false
               };
 
+              // Create the map
               map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+              // Set up the event listener for new parking spots
               google.maps.event.addListener(map, "click", function(event) {
                   var lat = event.latLng.lat();
                   var lng = event.latLng.lng();
 
-                  openModal(scope, lat, lng);
+                  parkingSpotSvc.getCurbData(lat, lng).then(function(curbs) {
 
-                  parkingSpotSvc.foo(lat, lng).then(function(result) {
-                    $log.debug(result);
+                    if(curbs.length === 0) {
+                      openNoParkingFoundModal();
+                      return;
+                    }
+
+                    var curb = curbs[0];
+
+                    if(curb.category === "No Parking Allowed"
+                        || curb.category === "Restricted Parking Zone")
+                    {
+                      openNoParkingFoundModal();
+                      return;
+                    }
+
+                    openModal(scope, lat, lng);
                   });
 
               });
+
+              // Populate the map with markers
+              parkingSpotSvc.getMarkedSpots().then(function(response) {
+
+/*
+                spots.forEach(function(spot) {*/
+                  var point = new google.maps.LatLng(response.data.lat, response.data.lon);
+                  var marker = new google.maps.Marker({
+                    position: point,
+                    map: map,
+                    icon: '/images/parky_marker.png'
+                  });
+                  google.maps.event.addListener(marker, 'click', function() {
+                    infowindow.open(map,marker);
+                  });
+
+/*
+                });
+                */
+
+
+
+              });
+
 /*
               var kmlUrl = "https://raw.githubusercontent.com/Piera/KML-for-parkapp/master/head.kml";
               var kmlOptions = {
@@ -93,10 +140,11 @@ angular.module('meterQuest')
               var infowindow = new google.maps.InfoWindow({
                   content: contentString
               });
-*/
+
               google.maps.event.addListener(marker, 'click', function() {
                   infowindow.open(map,marker);
               });
+              */
 
           });
 

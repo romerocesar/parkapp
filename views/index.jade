@@ -30,6 +30,13 @@ html(lang="en" ng-app="meterQuest")
         button.btn.btn-primary(ng-click="openSpot()") Mark It
         button.btn Nevermind
 
+    script(type="text/ng-template", id="noParkingFoundModal.html")
+      div.modal-header
+        h3 No Parking Found!
+
+      div.modal-body You selected a spot where parking is either 
+        strong restricted or not allowed
+
     script(src='jquery/dist/jquery.js')
     script(src='angular/angular.js')
     script(src='scripts/angular-views.min.js')
