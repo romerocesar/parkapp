@@ -71,6 +71,6 @@ angular.module('meterQuest')
 
         },
         restrict: 'E',
-        template: '<div id="map" style="width: 700px; height: 700px; margin: 50px;"/>'
+        template: '<div id="map" />'
     };
 });
