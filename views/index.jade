@@ -20,13 +20,15 @@ html(lang="en" ng-app="meterQuest")
 
     div.map-container
       meter-quest-map
-        
+
     div.user-container(ng-controller="userCtrl")
       user-scoreboard
 
     script(type="text/ng-template", id="parkingSpotModal.html")
       div.modal-header
-        h3 Found a Spot near {{location | reverseGeocode:location.lat:location.lng }?
+        h3 Found a Spot near&nbsp;
+            reverse-geocode(lat = "{{location.lat}}" lng="{{location.lng}}")
+            span ?
 
       div.modal-body
         button.btn.btn-primary(ng-click="openSpot()") Mark It
@@ -36,7 +38,7 @@ html(lang="en" ng-app="meterQuest")
       div.modal-header
         h3 No Parking Found!
 
-      div.modal-body You selected a spot where parking is either
+      div.modal-body You selected a spot where parking is either&nbsp;
         strong restricted or not allowed
 
     script(src='jquery/dist/jquery.js')
