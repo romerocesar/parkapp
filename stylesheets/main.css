@@ -1,4 +1,4 @@
-.btn-default {
+/*.btn-default {
   background-color: #39AB22;
   color: #fff;
   margin-left: 2%;
@@ -9,7 +9,7 @@
 .btn-default#edit {
   background-color: #428bca;
 }
-
+*/
 html, body
 {
   height: 100%;
@@ -81,6 +81,14 @@ header h4 .header-park
   font-weight: normal;
 }
 
+/*footer {
+  position: absolute;
+  bottom: 0;
+  font-family: 'Lato', arial;
+  color: #39AB22;
+  line-height: 80%;
+}*/
+
 @media (max-width: 500px) {
   header h1
   {
@@ -99,29 +107,65 @@ header h4 .header-park
   width: 100%;
 }
 
+.modal-content
+{
+  background-color: #444;
+  border: solid #fff 1px;
+}
+
 .modal-header
 {
   border: 0;
+  font-family: 'Bangers', sans-serif;
+  text-shadow: 1px 1px 1px #fff;
+  color: #39AB22;
+  font-weight: bold;
+  text-align: center;
+  margin: 0 0 -4% 0;
+  padding: 3% 0 0 0;
 }
 
 .modal-header h3
 {
-  color: #333;
-  font-size: 3em;
-  font-weight: bold;
-  text-align: center;
+  font-size: 5em;
+}
+
+.modal-header h2
+{
+  font-size: 3.25em;
 }
 
 .modal-body
 {
+  font-family: 'Lato', sans-serif;
+  font-style: italic;
   text-align: center;
   padding: 2em 0;
+  color: #fff;
+  font-size: 1.5em;
 }
 
+.mod-body
+{
+  font-size: 1.25em;
+  font-weight: bold;
+  text-shadow: .5px .5px .5px #39AB22;
+}
 .modal-body button.btn
 {
-  font-size: 2em;
+  font-size: 1.25em;
   margin: 0 10px;
   padding-left: 20px;
   padding-right: 20px;
+  border: solid #fff 1px;
+  font-style: normal;
+  width: 20%;
+}
+
+.modal-body button.btn:hover
+{
+  background-color: #39AB22;
+}
+.btn-primary {
+  background-color: #2d881b;
 }

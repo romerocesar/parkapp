@@ -28,20 +28,20 @@ html(lang="en" ng-app="meterQuest")
 
     script(type="text/ng-template", id="parkingSpotModal.html")
       div.modal-header
-        h3 Found a Spot near&nbsp;
+        h2 Found a Spot near&nbsp;
             reverse-geocode(lat = "{{location.lat}}" lng="{{location.lng}}")
             span ?
 
       div.modal-body
         button.btn.btn-primary(ng-click="openSpot()") Mark It
-        button.btn(ng-click="cancel()") Nevermind
+        button.btn(ng-click="cancel()") Cancel
 
     script(type="text/ng-template", id="noParkingFoundModal.html")
       div.modal-header
         h3 No Parking Found!
 
-      div.modal-body You selected a spot where parking is either&nbsp;
-        strong restricted or not allowed
+      div.modal-body You selected a spot where parking is either
+        span.mod-body  restricted or not allowed
 
     script(type="text/ng-template", id="updateParkingSpotModal.html")
       div.modal-header
