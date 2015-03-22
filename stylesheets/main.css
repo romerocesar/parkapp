@@ -89,6 +89,12 @@ header h4 .header-park
   line-height: 80%;
 }*/
 
+.user-container
+{
+  background-color: black;
+  overflow: auto;
+}
+
 @media (max-width: 500px) {
   header h1
   {
@@ -159,7 +165,7 @@ header h4 .header-park
   padding-right: 20px;
   border: solid #fff 1px;
   font-style: normal;
-  width: 20%;
+  width: 30%;
   background-color: #aaa;
 }
 
