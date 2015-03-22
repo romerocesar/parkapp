@@ -30,8 +30,9 @@ html(lang="en" ng-app="meterQuest")
 
     div.user-container(ng-controller="userCtrl")
       h5
-        span Welcome {{ currentUser.name }}! You currently have {{ currentUser.points }} points
-      div
+        span Welcome {{ currentUser.name }}! 
+          span You currently have {{ currentUser.points }} points
+      div.badge-container
         span(ng-repeat="badge in currentUser.badges" style="float: left")
           h6 {{ badge.name }}
           img(src="{{ badge.url }}" title="{{ badge.alt }}")
@@ -41,7 +42,7 @@ html(lang="en" ng-app="meterQuest")
     script(type="text/ng-template", id="parkingSpotModal.html")
       div.modal-header
 
-        h3 Found a Spot near&nbsp;
+        h2 Found a Spot near&nbsp;
             reverse-geocode(lat="{{location.lat}}" lon="{{location.lon}}")
 
       div.modal-body
@@ -65,7 +66,7 @@ html(lang="en" ng-app="meterQuest")
           span.rate-amount ${{location.rate}}/hour
 
         button.btn.btn-primary(ng-click="parkInSpot()") Park Here
-        button.btn.btn-primary(ng-click="fullSpot()") Spot is Full
+        button.btn.btn-default(ng-click="fullSpot()") Spot is Full
         button.btn(ng-click="cancel()") Cancel
 
     script(src='jquery/dist/jquery.js')

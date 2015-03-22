@@ -1,15 +1,3 @@
-/*.btn-default {
-  background-color: #39AB22;
-  color: #fff;
-  margin-left: 2%;
-  border: solid #fff 1px;
-  display: block;
-}
-
-.btn-default#edit {
-  background-color: #428bca;
-}
-*/
 html, body
 {
   height: 100%;
@@ -70,12 +58,6 @@ header h4 {
   text-align: center;
 }
 
-/*header:hover .title-wrapper
-{
-  background: url(../images/parky_tilted.png) no-repeat -15% 30%;
-  background-size: 250px 250px;
-}
-*/
 header h1 .header-quest
 {
   color: #fff;
@@ -100,6 +82,65 @@ header h4 .header-park
 {
   background-color: black;
   overflow: auto;
+  font-family: 'Bangers', arial;
+  color: #39AB22;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.user-container h5 
+{
+  font-size: 2.25em;
+  text-shadow: .2px .2px .2px #fff;
+  text-align: center;
+}
+
+.user-container h5 span span
+{
+  color: white;
+  text-align: center;
+}
+
+.user-container h6 
+{
+  color: #fff;
+  font-size: 1.1em;
+}
+
+.user-container img
+{
+  height: 50%;
+  width: 50%;
+}
+
+.badge-container
+{
+  width: 100%;
+  overflow: auto;
+  margin-bottom: 20px;
+}
+
+.badge-container span
+{
+  text-align: center;
+  width: 33.33333333%;
+}
+
+.user-container button.btn-primary
+{
+  font-size: 1.25em;
+  display: block;
+  margin: 0 auto 3%;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: solid #fff 1px;
+  font-style: normal;
+  width: 20%;
+  background-color: #39AB22;
+}
+
+.user-container button.btn-primary:hover {
+  background-color: #2d881b;
 }
 
 @media (max-width: 500px) {
@@ -189,9 +230,19 @@ header h4 .header-park
   background-color: #16440d;
 }
 
+.modal-body button.btn-default {
+  color: #fff;
+  background-color: #b3384c;
+}
+
+.modal-body button.btn-default:hover {
+  background-color: #ab2239;
+  color: #fff;
+}
+
 .rate-desc
 {
-  font-size: 2.5em;
+  font-size: 2em;
   margin: 0 0 20px 0;
 }
 
