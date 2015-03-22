@@ -5,12 +5,22 @@ html(lang="en" ng-app="meterQuest")
   head
     title= "meterQuest"
     meta(charset="utf-8")
+    link(rel='stylesheet', type='text/css', href='http://fonts.googleapis.com/css?family=Montserrat') 
+
+    link(rel='stylesheet', href='/stylesheets/main.css')
+
     link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.css')
+
     block head
+    
+    
+
+  header
+    h1 MeterQuest!
+    h4 Save Seattle...one parking spot at a time
 
   body
     div(rp-nav-bar)
-    h1 Hello World
     div(ng-controller="CreateModalCtrl")
         script(type="text/ng-template", id="markOpenModal.html")
             div(modal-header)
@@ -33,6 +43,11 @@ html(lang="en" ng-app="meterQuest")
 
     div(id='map' style='width: 700px; height: 700px; margin: 50px;' ng-controller='meterQuestMap')
 
+
+    footer
+      p Copyright 2015 or whatever
+      p <a href="https://github.com/cromero/parkapp" id="gitlink">MeterQuest on GitHub</a>
+
     script(src='jquery/dist/jquery.js')
     script(src='angular/angular.js')
     script(src='scripts/angular-views.min.js')
@@ -40,4 +55,3 @@ html(lang="en" ng-app="meterQuest")
     script(src='angular-bootstrap/ui-bootstrap-tpls.min.js')
     script(src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false')
     script(src='scripts/all.js')
-

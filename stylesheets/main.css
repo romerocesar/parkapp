@@ -1,0 +1,24 @@
+header, footer {
+  margin-top: -2%;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  color: white;
+  background-color: #000;
+  padding: 2%;
+}
+
+h1 {
+  text-shadow: 1px 1px 1px gray;
+}
+
+header h4 {
+  color: #39AB22;
+}
+footer {
+  font-family: arial;
+  font-weight: normal;
+  color: #39AB22;
+  line-height: 80%;
+}
+
+
