@@ -7,9 +7,10 @@ html(lang="en" ng-app="meterQuest")
     meta(charset="utf-8")
     link(rel='stylesheet', type='text/css', href='http://fonts.googleapis.com/css?family=Montserrat') 
 
-    link(rel='stylesheet', href='/stylesheets/main.css')
-
+    
     link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.css')
+
+    link(rel='stylesheet', href='/stylesheets/main.css')
 
     block head
     
@@ -34,13 +35,14 @@ html(lang="en" ng-app="meterQuest")
                     button(class="btn btn-primary" ng-click="parkInSpot()") Park in spot
                     button(class="btn btn-primary" ng-click="confirmOpenSpot()") Confirm open
                     button(class="btn btn-primary" ng-click="fullSpot()") Spot now filled
-            button(class="btn btn-default" ng-click="cancel()") Cancel
 
+            button(class="btn btn-default" ng-click="cancel()") Cancel
+            
     meter-quest-map
 
 
     footer
-      p Copyright 2015 or whatever
+      p &copy; 2015 or whatever
       p <a href="https://github.com/cromero/parkapp" id="gitlink">MeterQuest on GitHub</a>
 
     script(src='jquery/dist/jquery.js')

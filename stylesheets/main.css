@@ -1,14 +1,26 @@
+/*this is the pink color: #ef409f*/
+
+body {
+  background-color: #000;
+}
+
 header, footer {
   margin-top: -2%;
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
-  color: white;
-  background-color: #000;
+  background-color: #333;
+  color: #fff;
   padding: 2%;
+  border-top: solid #fff 2px;
 }
 
 h1 {
   text-shadow: 1px 1px 1px gray;
+}
+
+header {
+  margin-bottom: 2%;
+  border-bottom: solid #428bca 2px;
 }
 
 header h4 {
@@ -21,4 +33,22 @@ footer {
   line-height: 80%;
 }
 
+body {
+  background-color: black;
+}
 
+.btn-default {
+  background-color: #39AB22;
+  color: #fff;
+  margin-left: 2%;
+  border: solid #fff 1px;
+  display: block;
+}
+
+.btn-default#edit {
+  background-color: #428bca;
+}
+
+/*#gitlink {
+  color: red;
+}*/
