@@ -36,16 +36,16 @@ Our team:
 
 We used the following **technologies**:
 
-* AngularJS
-* ArcGIS JavaScript API
-* Bower
-* CoffeeScript (server-side)
+* [AngularJS](https://angularjs.org/)
+* [ArcGIS JavaScript API](http://www.arcgis.com/)
+* [Bower](http://bower.io/)
+* [CoffeeScript (server-side)](http://coffeescript.org/)
 * CSS
-* Jade
+* [Jade](http://jade-lang.com/)
 * JavaScript
-* Koa
-* LokiJS
-* Twitter Bootstrap
+* [Koa](http://koajs.com/)
+* [LokiJS](http://lokijs.org/)
+* [Twitter Bootstrap](http://getbootstrap.com/)
 
 We used the following **APIs**:
 

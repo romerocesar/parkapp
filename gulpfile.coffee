@@ -19,7 +19,7 @@ paths =
   build       : "build"
   dest        : "public"
   packagejson : "./package.json"
-  partials    : "partials/*.html"
+  partials    : "partials/*.jade"
   scripts     : "webapp/**/*.js"
   server      : "server/*.coffee"
   styles      : "./stylesheets/**/*.css"
@@ -28,7 +28,8 @@ paths =
 
 gulp.task "angular-views", ->
   gulp.src paths.partials
-    .pipe ngHtml2Js(moduleName: "meterQuest.partials")
+    .pipe jade()
+    .pipe ngHtml2Js(moduleName: "meterQuest.partials", prefix: "/partials/")
     .pipe concat "angular-views.min.js"
     .pipe gulp.dest paths.dest + "/scripts"
     .pipe livereload()

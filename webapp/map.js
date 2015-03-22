@@ -1,6 +1,10 @@
 angular.module('meterQuest')
 .directive('meterQuestMap', function($log, $modal, parkingSpotSvc) {
 
+    var map;
+    var mapMarkers = [];
+    var globalScope;
+
     // Gets the user's position
     function getUserPosition(success) {
 
@@ -23,33 +27,121 @@ angular.module('meterQuest')
 
     }
 
-    var map;
+    function openModal(scope, lat, lon, category) {
 
-    function openModal(scope, lat, lng) {
-        $log.debug('Going to open modal with ' + angular.toJson({lat: lat , lng: lng}));
         scope.location = {
             lat: lat,
-            lng: lng
+            lon: lon,
+            category: category
         };
+
         $modal.open({
             templateUrl: 'parkingSpotModal.html',
             controller: 'parkingSpotModalCtrl',
             scope: scope
-        }).result.then(function (selectedItem) {
-            scope.selected = selectedItem;
-        }, function () {
-            $log.info('Modal dismissed at: ' + new Date());
+        }).result.then(function () {
+            refreshMarkers();
         });
+
     }
 
     function openNoParkingFoundModal() {
+
       $modal.open({
         templateUrl: 'noParkingFoundModal.html'
       });
+
+    }
+
+    function openUpdateParkingSpotModal(scope, lat, lon) {
+
+      scope.location = {
+        lat: lat,
+        lon: lon
+      };
+
+      $modal.open({
+        templateUrl: 'updateParkingSpotModal.html',
+        controller: 'parkingSpotModalCtrl',
+        scope: scope
+      }).result.then(function () {
+        refreshMarkers();
+      });
+
+    }
+
+    function dropMarker(lat, lon) {
+
+      var icon = '/images/parky_marker.png'
+
+      var point = new google.maps.LatLng(lat,lon);
+
+      var marker = new google.maps.Marker({
+        position: point,
+        map: map,
+        icon: icon
+      });
+
+      google.maps.event.addListener(marker, 'click', function(event) {
+        var lat = event.latLng.lat();
+        var lon = event.latLng.lng();
+        openUpdateParkingSpotModal(globalScope, lat, lon);
+      });
+
+      mapMarkers.push(marker);
+
+    }
+
+    function clearMarkers() {
+
+      mapMarkers.forEach(function(marker) {
+        marker.setMap(null);
+      });
+
+      mapMarkers = [];
+
+    }
+
+    function refreshMarkers() {
+
+      // Populate the map with markers
+      parkingSpotSvc.getMarkedSpots().then(function(response) {
+
+        // Remove all filters
+        clearMarkers();
+
+        // Add the markers returned from the service
+        response.data.forEach(function(spot) {
+
+          var currentTime = +new Date();
+          deltaTime = currentTime - spot.timestamp;
+          console.log(spot.category);
+          console.log(deltaTime);
+
+          if (deltaTime >= 1200000) {
+            icon = '/images/parky_marker.png';
+            console.log("Over 20 minutes old - discard");
+            return;
+          } else if (600000 <= deltaTime && deltaTime < 1200000) {
+            icon = 'https://raw.githubusercontent.com/Piera/Project/master/MVC/static/img/marker_blue.png';
+            console.log("Between 10 and 20 minutes old");
+          } else {
+            icon = 'https://raw.githubusercontent.com/Piera/Project/master/MVC/static/img/white-google-map-pin-md.png';
+            console.log("Under 10 minutes old");
+          }
+
+          dropMarker(spot.lat, spot.lon);
+
+        });
+
+      });
+
     }
 
     return {
         link: function(scope, elem, attr) {
+
+            globalScope = scope;
 
             getUserPosition(function(lat, lon) {
 
@@ -87,31 +179,15 @@ angular.module('meterQuest')
                       return;
                     }
 
-                    openModal(scope, lat, lng);
-                  });
+                    openModal(scope, lat, lng, curb.category);
 
+                  });
               });
 
-              // Populate the map with markers
-              parkingSpotSvc.getMarkedSpots().then(function(response) {
-                console.log(response.data[0].lat);
+              refreshMarkers();
 
-                response.data.forEach(function(spot) {
-                  var point = new google.maps.LatLng(spot.lat, spot.lon);
-                  var marker = new google.maps.Marker({
-                    position: point,
-                    map: map,
-                    icon: '/images/parky_marker.png'
-                  });
-                  google.maps.event.addListener(marker, 'click', function() {
-                    infowindow.open(map,marker);
-                  });
+              /*
 
-                });
-                
-              });
-
-/*
               var kmlUrl = "https://raw.githubusercontent.com/Piera/KML-for-parkapp/master/head.kml";
               var kmlOptions = {
                 suppressInfoWindows: true,
@@ -124,22 +200,6 @@ angular.module('meterQuest')
               console.log(kmlLayer);
               console.log(kmlLayer.url);
 
-              var myLatlng = new google.maps.LatLng(47.6097, -122.3331);
-              var marker = new google.maps.Marker({
-                  position: myLatlng,
-                  map: map,
-                  title: 'Hello World!'
-              });
-
-              contentString = 'test marker text!'
-
-              var infowindow = new google.maps.InfoWindow({
-                  content: contentString
-              });
-
-              google.maps.event.addListener(marker, 'click', function() {
-                  infowindow.open(map,marker);
-              });
               */
 
           });

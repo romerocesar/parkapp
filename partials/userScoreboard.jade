@@ -1,0 +1,7 @@
+h5
+  span Welcome {{ currentUser.name }}! You currently have {{ currentUser.points }} points
+div
+  span(ng-repeat="badge in currentUser.badges" style="float: left")
+    h6 {{ badge.name }}
+    img(src="{{ badge.url }}" title="{{ badge.alt }}")
+button.btn.btn-primary(ng-click="toggleUser()") Log out

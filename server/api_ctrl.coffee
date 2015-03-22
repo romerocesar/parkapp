@@ -26,4 +26,10 @@ module.exports = api = {
     else
       query.timestamp = Date.now()
       @body = yield Spot.create(query)
+
+  deleteSpot: ->*
+    lat = @request.query.lat
+    lon = @request.query.lon
+    Spot.delete({ "lat": parseFloat(lat, 10), "lon": parseFloat(lon, 10) })
+    @body = yield { 'deleted': true }
 }
