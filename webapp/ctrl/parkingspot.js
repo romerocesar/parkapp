@@ -4,11 +4,12 @@ function($log, $modalInstance, $scope, parkingSpotSvc) {
     $log.debug('entering the parking spot modal with scope: ' + angular.toJson($scope.location));
 
     $scope.openSpot = function () {
-        parkingSpotSvc.markSpot($scope.location.lat, $scope.location.lng);
+        parkingSpotSvc.markSpot($scope.location.lat, $scope.location.lon);
         $modalInstance.close($scope.selected);
     };
 
     $scope.parkInSpot = function () {
+        parkingSpotSvc.parkInSpot($scope.location.lat, $scope.location.lon);
         $modalInstance.close($scope.selected);
     };
 
@@ -17,6 +18,7 @@ function($log, $modalInstance, $scope, parkingSpotSvc) {
     };
 
     $scope.fullSpot = function () {
+        parkingSpotSvc.reportFullSpot($scope.location.lat, $scope.location.lon);
         $modalInstance.close($scope.selected);
     };
 

@@ -25,27 +25,46 @@ angular.module('meterQuest')
 
     var map;
 
-    function openModal(scope, lat, lng) {
-        $log.debug('Going to open modal with ' + angular.toJson({lat: lat , lng: lng}));
+    function openModal(scope, lat, lon) {
+
         scope.location = {
             lat: lat,
-            lng: lng
+            lon: lon
         };
+
         $modal.open({
             templateUrl: 'parkingSpotModal.html',
             controller: 'parkingSpotModalCtrl',
             scope: scope
         }).result.then(function (selectedItem) {
             scope.selected = selectedItem;
-        }, function () {
-            $log.info('Modal dismissed at: ' + new Date());
         });
+
     }
 
     function openNoParkingFoundModal() {
+
       $modal.open({
         templateUrl: 'noParkingFoundModal.html'
       });
+
+    }
+
+    function openUpdateParkingSpotModal(scope, lat, lon) {
+
+      scope.location = {
+        lat: lat,
+        lon: lon
+      };
+
+      $modal.open({
+        templateUrl: 'updateParkingSpotModal.html',
+        controller: 'parkingSpotModalCtrl',
+        scope: scope
+      }).result.then(function (selectedItem) {
+        scope.selected = selectedItem;
+      });
+
     }
 
     function dropMarker(lat, lon) {
@@ -127,12 +146,15 @@ angular.module('meterQuest')
                     map: map,
                     icon: icon
                   });
-                  google.maps.event.addListener(marker, 'click', function() {
-                    infowindow.open(map,marker);
+
+                  google.maps.event.addListener(marker, 'click', function(event) {
+                    var lat = event.latLng.lat();
+                    var lon = event.latLng.lng();
+                    openUpdateParkingSpotModal(scope, lat, lon);
                   });
 
                 });
-                
+
               });
 
               /*

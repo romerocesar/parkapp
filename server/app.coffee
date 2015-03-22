@@ -34,5 +34,6 @@ app.use route.post "/api/spots", apiCtrl.createSpot
 app.use route.get "/api/spots", apiCtrl.listSpots
 app.use route.get "/api/mockSpot", apiCtrl.mockSpot
 app.use route.put "/api/spots", apiCtrl.upsertSpot
+app.use route.delete "/api/spots", apiCtrl.deleteSpot
 
 app.listen 3000

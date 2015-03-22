@@ -149,6 +149,14 @@ angular.module('meterQuest')
 
         markSpot: function(lat, lon) {
           return $http.post('/api/spots', { lat: lat, lon: lon });
+        },
+
+        parkInSpot: function(lat, lon) {
+          return $http.delete('/api/spots?lat=' + lat + '&lon=' + lon);
+        },
+
+        reportFullSpot: function(lat, lon) {
+          return $http.delete('/api/spots', { lat: lat, lon: lon });
         }
     }
 });

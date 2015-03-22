@@ -29,16 +29,24 @@ html(lang="en" ng-app="meterQuest")
         h3 Found a Spot?
 
       div.modal-body
-        <!-- {{location}} -->
         button.btn.btn-primary(ng-click="openSpot()") Mark It
-        button.btn Nevermind
+        button.btn(ng-click="cancel()") Nevermind
 
     script(type="text/ng-template", id="noParkingFoundModal.html")
       div.modal-header
         h3 No Parking Found!
 
-      div.modal-body You selected a spot where parking is either 
+      div.modal-body You selected a spot where parking is either
         strong restricted or not allowed
+
+    script(type="text/ng-template", id="updateParkingSpotModal.html")
+      div.modal-header
+        h3 Found a Spot!
+
+      div.modal-body
+        button.btn.btn-primary(ng-click="parkInSpot()") Park Here
+        button.btn.btn-primary(ng-click="fullSpot()") Spot is Full
+        button.btn(ng-click="cancel()") Nevermind
 
     script(src='jquery/dist/jquery.js')
     script(src='angular/angular.js')
