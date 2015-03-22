@@ -4,39 +4,38 @@ html(lang="en" ng-app="meterQuest")
 
   head
     title= "meterQuest"
-    meta(charset="utf-8")
-    link(rel='stylesheet', type='text/css', href='http://fonts.googleapis.com/css?family=Montserrat')
-    link(rel='stylesheet', href='/stylesheets/main.css')
-    link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.css')
-    block head
 
-  header
-    h1 MeterQuest!
-    h4 Save Seattle...one parking spot at a time
+    meta(charset="utf-8")
+
+    link(rel='stylesheet', type='text/css', href='http://fonts.googleapis.com/css?family=Montserrat')
+    link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.css')
+    link(rel='stylesheet', href='/stylesheets/main.css')
 
   body
-    div(rp-nav-bar)
-    h1 Parking spots FTW!
-    div
-     script(type="text/ng-template", id="parkingSpotModal.html")
-            div(modal-header)
-            h3(modal-title) Report open parking space at {{location}}
-                div(modal-body)
-                    button(class="btn btn-primary" ng-click="openSpot()") Spot open
 
-            h3(modal-title) Confirm or change status of parking spot
-                div(modal-body)
-                    button(class="btn btn-primary" ng-click="parkInSpot()") Park in spot
-                    button(class="btn btn-primary" ng-click="confirmOpenSpot()") Confirm open
-                    button(class="btn btn-primary" ng-click="fullSpot()") Spot now filled
-            button(class="btn btn-default" ng-click="cancel()") Cancel
+    header
+      h1
+        span.header-meter Meter
+        span.header-quest Quest
 
-    meter-quest-map
+    div.map-container
+      meter-quest-map
 
+    script(type="text/ng-template", id="parkingSpotModal.html")
+      div.modal-header
+        h3 Found a Spot?
 
-    footer
-      p Copyright 2015 or whatever
-      p <a href="https://github.com/cromero/parkapp" id="gitlink">MeterQuest on GitHub</a>
+      div.modal-body
+        <!-- {{location}} -->
+        button.btn.btn-primary(ng-click="openSpot()") Mark It
+        button.btn Nevermind
+
+    script(type="text/ng-template", id="noParkingFoundModal.html")
+      div.modal-header
+        h3 No Parking Found!
+
+      div.modal-body You selected a spot where parking is either
+        strong restricted or not allowed
 
     script(src='jquery/dist/jquery.js')
     script(src='angular/angular.js')

@@ -23,6 +23,7 @@ paths =
   scripts     : "webapp/**/*.js"
   server      : "server/*.coffee"
   styles      : "./stylesheets/**/*.css"
+  images      : "./images/**/*.png"
   views       : "views/*.jade"
 
 gulp.task "angular-views", ->
@@ -55,6 +56,7 @@ gulp.task "server", ->
       "./src/**"
       "./test/**"
       "./views/**"
+      "./images/**"
     ]
 
 gulp.task "server-scripts", ->
@@ -73,6 +75,11 @@ gulp.task "styles", ->
     .pipe gulp.dest paths.dest + "/stylesheets"
     .pipe livereload()
 
+gulp.task "images", ->
+  gulp.src paths.images
+    .pipe gulp.dest paths.dest + "/images"
+    .pipe livereload()
+
 gulp.task "views", ->
   gulp.src paths.views
     .pipe jade()
@@ -88,5 +95,5 @@ gulp.task "watch", ->
   gulp.watch paths.bowerjson   , ["bower"]
   gulp.watch paths.partials    , ["angular-views"]
 
-gulp.task "default", [ "bower", "views", "angular-views", "styles", "scripts", "server-scripts", "watch", "server"]
+gulp.task "default", [ "bower", "views", "angular-views", "styles", "scripts", "images", "server-scripts", "watch", "server"]
 gulp.task "deps", ["npm", "bower"]

@@ -33,5 +33,6 @@ app.use route.get "/", ->*
 app.use route.post "/api/spots", apiCtrl.createSpot
 app.use route.get "/api/spots", apiCtrl.listSpots
 app.use route.get "/api/mockSpot", apiCtrl.mockSpot
+app.use route.put "/api/spots", apiCtrl.upsertSpot
 
 app.listen 3000

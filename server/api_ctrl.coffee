@@ -15,4 +15,15 @@ module.exports = api = {
     @body = yield Spot.find({ "lat": { "$ne": 91 }})
 
   mockSpot:  ->* @body = yield { "lat": 47.606516, "lon": -122.335915, "timestamp": Date.now() - 60000 }
+
+  upsertSpot: ->*
+    query = @request.body
+    toUpdate = Spot.find(query)
+    if toUpdate.length > 0
+      # Update the timestamp to indicate it is currently still open, as that is the only possible update (new
+      # coordinates would be a different parking spot).
+      @body = yield toUpdate.update((spot) -> spot.timestamp = Date.now())
+    else
+      query.timestamp = Date.now()
+      @body = yield Spot.create(query)
 }

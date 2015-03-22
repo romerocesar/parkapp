@@ -1,14 +1,26 @@
+/*this is the pink color: #ef409f*/
+
+body {
+  background-color: #000;
+}
+
 header, footer {
   margin-top: -2%;
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
-  color: white;
-  background-color: #000;
+  background-color: #333;
+  color: #fff;
   padding: 2%;
+  border-top: solid #fff 2px;
 }
 
 h1 {
   text-shadow: 1px 1px 1px gray;
+}
+
+header {
+  margin-bottom: 2%;
+  border-bottom: solid #428bca 2px;
 }
 
 header h4 {
@@ -21,4 +33,113 @@ footer {
   line-height: 80%;
 }
 
+body {
+  background-color: black;
+}
 
+.btn-default {
+  background-color: #39AB22;
+  color: #fff;
+  margin-left: 2%;
+  border: solid #fff 1px;
+  display: block;
+}
+
+.btn-default#edit {
+  background-color: #428bca;
+}
+
+/*#gitlink {
+  color: red;
+}*/
+
+
+html, body
+{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+header
+{
+  background: #111;
+  border: 0;
+  height: 100px;
+  margin: 0;
+  padding: 5px 0 0 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+header h1
+{
+  background: url(../images/parky_tilted.png) no-repeat 0 -50%;
+  font-size: 3.25em;
+  height: 100%;
+  margin: 0 auto;
+  padding: 20px 0 0 0;
+  text-align: center;
+  text-shadow: none;
+  transition: 0.1s background-position;
+  max-width: 550px;
+  width: 100%;
+}
+
+header:hover h1
+{
+  background: url(../images/parky_tilted.png) no-repeat 0 -10%;
+}
+
+header h1 .header-quest
+{
+  color: #267fc3;
+}
+
+@media (max-width: 500px) {
+  header h1
+  {
+    background: none;
+  }
+}
+
+.map-container
+{
+  height: 100%;
+}
+
+#map
+{
+  height: 100%;
+  width: 100%;
+}
+
+.modal-header
+{
+  border: 0;
+}
+
+.modal-header h3
+{
+  color: #333;
+  font-size: 3em;
+  font-weight: bold;
+  text-align: center;
+}
+
+.modal-body
+{
+  text-align: center;
+  padding: 2em 0;
+}
+
+.modal-body button.btn
+{
+  font-size: 2em;
+  margin: 0 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
