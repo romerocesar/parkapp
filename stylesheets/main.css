@@ -125,3 +125,14 @@ header h4 .header-park
   padding-left: 20px;
   padding-right: 20px;
 }
+
+.rate-desc
+{
+  font-size: 2.5em;
+  margin: 0 0 20px 0;
+}
+
+.rate-amount
+{
+  font-weight: bold;
+}
