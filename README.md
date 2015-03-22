@@ -30,7 +30,7 @@ Our team:
 * [Piera Damote](https://github.com/Piera)
 * [Utah Newman](https://github.com/theutahkate)
 * [Peter Shaw]()
-* [Doug Wade]()
+* [Doug Wade](https://github.com/prekolna)
 
 ## Technologies, APIs, and Datasets Utilized
 
